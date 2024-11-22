@@ -28,6 +28,11 @@ export function Navbar() {
                   Vote
                 </NavigationMenuLink>
               </Link>
+              <Link href="/add-representative" legacyBehavior passHref>
+                <NavigationMenuLink className={navigationMenuTriggerStyle()}>
+                  Add Representative
+                </NavigationMenuLink>
+              </Link>
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
