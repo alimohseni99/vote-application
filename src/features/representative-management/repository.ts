@@ -1,5 +1,5 @@
 import { Db } from "@/db";
-import { sql } from "drizzle-orm";
+import { and, eq, sql } from "drizzle-orm";
 import { representativesTable, votersTable } from "./schema/schema";
 import { Representative } from "./type";
 
@@ -27,6 +27,22 @@ export function createRepository(db: Db) {
       await db
         .update(representativesTable)
         .set({ votes: sql`${representativesTable.votes} +1` });
+    },
+    async checkForDuplicateVote(
+      publicVoterId: string,
+      representativeId: string
+    ): Promise<boolean> {
+      const result = await db
+        .select()
+        .from(votersTable)
+        .where(
+          and(
+            eq(votersTable.publicVoterId, publicVoterId),
+            eq(votersTable.representativeId, representativeId)
+          )
+        );
+
+      return result.length > 0;
     },
   };
 }

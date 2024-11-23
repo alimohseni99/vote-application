@@ -16,6 +16,7 @@ type Props = {
   email: string;
   votes: number;
   representativeId: string;
+  disabled: boolean;
 };
 
 export function RepresentativeCard({
@@ -23,11 +24,13 @@ export function RepresentativeCard({
   email,
   votes,
   representativeId,
+  disabled,
 }: Props) {
-  const onClick = () => {
-    AddPublicVote(representativeId);
+  const onClick = async () => {
+    await AddPublicVote(representativeId);
     alert("Thank you for your vote");
   };
+
   return (
     <>
       <Card className="w-[350px] rounded-lg shadow-lg border border-gray-200 hover:shadow-xl transition-shadow duration-300 mt-2 ml-2">
@@ -54,7 +57,7 @@ export function RepresentativeCard({
         </CardContent>
 
         <CardFooter className="bg-gray-10 p-4 rounded-b-lg flex justify-center">
-          <Button className="w-32" onClick={onClick}>
+          <Button className="w-32" onClick={onClick} disabled={disabled}>
             Vote
           </Button>
         </CardFooter>
