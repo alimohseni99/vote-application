@@ -1,4 +1,4 @@
-import { RepresentativeForm } from "@/features/representative-management/component/representative-form";
+import { RepresentativeForm } from "@/features";
 
 export default function AddRepresentativeForm() {
   return (

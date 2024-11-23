@@ -36,7 +36,7 @@ export function RepresentativeForm() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-6 p-6 shadow-md rounded-lg max-w-md mx-auto border"
+        className="space-y-6 p-6 shadow-md rounded-lg max-w-md mx-auto border mt-20"
       >
         <h2 className="text-xl font-semibold text-center">
           Add Representative

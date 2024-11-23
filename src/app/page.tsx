@@ -1,4 +1,4 @@
-import { Main } from "@/features/representative-management/component/main";
+import { Main } from "@/features";
 
 export default function Home() {
   return (
