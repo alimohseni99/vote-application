@@ -1,5 +1,12 @@
 import { sql } from "drizzle-orm";
-import { integer, pgTable, uuid, varchar } from "drizzle-orm/pg-core";
+import {
+  boolean,
+  integer,
+  pgTable,
+  timestamp,
+  uuid,
+  varchar,
+} from "drizzle-orm/pg-core";
 
 export const representativesTable = pgTable("representative", {
   id: uuid()
@@ -17,4 +24,13 @@ export const votersTable = pgTable("voter", {
   representativeId: uuid()
     .notNull()
     .references(() => representativesTable.id),
+});
+
+export const electionTable = pgTable("election", {
+  id: uuid()
+    .primaryKey()
+    .default(sql`gen_random_uuid()`),
+  createdTimeStamp: timestamp().notNull(),
+  active: boolean(),
+  deactivatedTimeStamp: timestamp().notNull(),
 });
