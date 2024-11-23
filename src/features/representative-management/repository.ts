@@ -1,4 +1,5 @@
 import { Db } from "@/db";
+import { sql } from "drizzle-orm";
 import { representativesTable, votersTable } from "./schema/schema";
 import { Representative } from "./type";
 
@@ -15,7 +16,17 @@ export function createRepository(db: Db) {
     },
 
     async addPublicVote(id: string, representativeId: string) {
-      await db.insert(votersTable).values({ id, representativeId }).execute();
+      const publicVote = await db
+        .insert(votersTable)
+        .values({ id, representativeId })
+        .execute();
+      if (!publicVote) {
+        throw new Error("Something went wrong");
+      }
+
+      await db
+        .update(representativesTable)
+        .set({ votes: sql`${representativesTable.votes} +1` });
     },
   };
 }

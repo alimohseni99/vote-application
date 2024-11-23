@@ -13,7 +13,7 @@ export function createService(db: Db) {
       return await repository.addRepresentative(representative);
     },
     async addPublicVote(id: string, representativeId: string) {
-      return await repository.addPublicVote(id, representativeId);
+      await repository.addPublicVote(id, representativeId);
     },
   };
 }
