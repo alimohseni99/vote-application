@@ -9,16 +9,33 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+import { z } from "zod";
 import { addRepresentative } from "../action";
 
+const representativeSchema = z.object({
+  name: z.string().min(1, "Name is required"),
+  email: z.string().email({ message: "Invalid email address" }),
+});
+
 export function RepresentativeForm() {
-  const form = useForm();
+  const form = useForm<z.infer<typeof representativeSchema>>({
+    resolver: zodResolver(representativeSchema),
+    defaultValues: {
+      name: "",
+      email: "",
+    },
+  });
+
+  const onSubmit = (values: z.infer<typeof representativeSchema>) => {
+    addRepresentative(values);
+  };
 
   return (
     <Form {...form}>
       <form
-        action={addRepresentative}
+        onSubmit={form.handleSubmit(onSubmit)}
         className="space-y-6 p-6 shadow-md rounded-lg max-w-md mx-auto border"
       >
         <h2 className="text-xl font-semibold text-center">
@@ -29,25 +46,25 @@ export function RepresentativeForm() {
           <FormLabel className="text-sm font-medium">Name</FormLabel>
           <FormControl>
             <Input
-              name="name"
+              {...form.register("name")}
               placeholder="Enter representative name"
               className="mt-1 block w-full rounded-md border shadow-sm"
             />
           </FormControl>
-          <FormMessage />
+          <FormMessage>{form.formState.errors.name?.message}</FormMessage>
         </FormItem>
 
         <FormItem>
           <FormLabel className="text-sm font-medium">Email</FormLabel>
           <FormControl>
             <Input
-              name="email"
+              {...form.register("email")}
               type="email"
               placeholder="Enter representative email"
               className="mt-1 block w-full rounded-md border shadow-sm"
             />
           </FormControl>
-          <FormMessage />
+          <FormMessage>{form.formState.errors.email?.message}</FormMessage>
         </FormItem>
 
         <div className="text-center">
