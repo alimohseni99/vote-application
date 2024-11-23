@@ -14,7 +14,7 @@ export function Navbar() {
       className="sticky top-0 z-50 w-full border-b bg-white dark:border-gray-800 
     dark:bg-gray-950"
     >
-      <div className="container flex flex-col max-w-full p-4 items-center justify-between md:px-6">
+      <div className="container flex  max-w-full p-4 items-center justify-center md:px-6">
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>

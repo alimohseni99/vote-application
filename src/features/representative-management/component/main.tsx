@@ -18,7 +18,7 @@ export async function Main() {
           ))}
         </section>
 
-        <div className="col-span-2 justify-center text-center m-4">
+        <div className="col-span-2 justify-center text-center">
           <LeaderBoard />
         </div>
       </main>
