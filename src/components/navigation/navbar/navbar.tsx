@@ -33,7 +33,7 @@ export function Navbar() {
                   Add Representative
                 </NavigationMenuLink>
               </Link>
-              <Link href="/add-representative" legacyBehavior passHref>
+              <Link href="/add-election" legacyBehavior passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                   Add Election
                 </NavigationMenuLink>
