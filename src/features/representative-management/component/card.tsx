@@ -10,9 +10,10 @@ import Image from "next/image";
 type Props = {
   name: string;
   email: string;
+  votes: number;
 };
 
-export async function RepresentativeCard({ name, email }: Props) {
+export async function RepresentativeCard({ name, email, votes }: Props) {
   return (
     <Card className="w-[350px] rounded-lg shadow-lg border border-gray-200 hover:shadow-xl transition-shadow duration-300 mt-2 ml-2">
       <CardHeader className="bg-gray-50 p-4 text-gray-800 rounded-t-lg text-center">
@@ -25,8 +26,16 @@ export async function RepresentativeCard({ name, email }: Props) {
         />
       </CardHeader>
       <CardContent className="p-6 text-gray-700 text-start">
-        <p>{name}</p>
-        <p>{email}</p>
+        <p>
+          <strong>Name: </strong> {name}
+        </p>
+        <p>
+          <strong>Email: </strong> {email}
+        </p>
+        <p>
+          <strong>Total of votes: </strong>
+          {votes}
+        </p>
       </CardContent>
 
       <CardFooter className="bg-gray-10 p-4 rounded-b-lg flex justify-center">

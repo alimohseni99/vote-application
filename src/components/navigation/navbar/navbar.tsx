@@ -25,7 +25,7 @@ export function Navbar() {
               </Link>
               <Link href="/vote" legacyBehavior passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                  Vote
+                  Election Vote
                 </NavigationMenuLink>
               </Link>
               <Link href="/add-representative" legacyBehavior passHref>

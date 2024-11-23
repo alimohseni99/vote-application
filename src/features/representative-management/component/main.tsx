@@ -7,13 +7,14 @@ export async function Main() {
 
   return (
     <>
-      <main className="grid grid-cols-5 gap-2">
-        <section className="grid grid-cols-3 gap-2 col-span-3">
+      <main className="grid grid-cols-5 ">
+        <section className="grid grid-cols-3 col-span-3">
           {representatives.map((representative, index) => (
             <RepresentativeCard
               key={index}
               name={representative.name}
               email={representative.email}
+              votes={representative.votes}
             />
           ))}
         </section>
