@@ -1,3 +1,5 @@
+"use server";
+
 import { chatService } from "./instance";
 import { Representative } from "./type";
 export async function addRepresentative(formData: FormData) {
