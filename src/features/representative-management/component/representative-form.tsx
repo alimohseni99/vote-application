@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormField,
   FormItem,
   FormLabel,
   FormMessage,
@@ -19,22 +18,17 @@ export function RepresentativeForm() {
   return (
     <Form {...form}>
       <form action={addRepresentative} className="space-y-8">
-        <FormField
-          name="username"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Name</FormLabel>
-              <FormControl>
-                <Input placeholder="" name="name" />
-              </FormControl>{" "}
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input placeholder="" name="email" />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <FormItem>
+          <FormLabel>Name</FormLabel>
+          <FormControl>
+            <Input name="name" />
+          </FormControl>{" "}
+          <FormLabel>Email</FormLabel>
+          <FormControl>
+            <Input name="email" />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
         <Button type="submit">Submit</Button>
       </form>
     </Form>
