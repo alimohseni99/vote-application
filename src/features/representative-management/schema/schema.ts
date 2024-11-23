@@ -13,6 +13,7 @@ export const votersTable = pgTable("voter", {
   id: uuid()
     .primaryKey()
     .default(sql`gen_random_uuid()`),
+  publicVoterId: uuid().notNull(),
   representativeId: uuid()
     .notNull()
     .references(() => representativesTable.id),

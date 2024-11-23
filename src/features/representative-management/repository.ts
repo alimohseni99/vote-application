@@ -15,10 +15,10 @@ export function createRepository(db: Db) {
         .execute();
     },
 
-    async addPublicVote(id: string, representativeId: string) {
+    async addPublicVote(publicVoterId: string, representativeId: string) {
       const publicVote = await db
         .insert(votersTable)
-        .values({ id, representativeId })
+        .values({ publicVoterId, representativeId })
         .execute();
       if (!publicVote) {
         throw new Error("Something went wrong");
