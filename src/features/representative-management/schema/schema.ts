@@ -9,3 +9,11 @@ export const representativesTable = pgTable("representative", {
   email: varchar({ length: 255 }).notNull().unique(),
   votes: integer().notNull().default(0),
 });
+export const votersTable = pgTable("voter", {
+  id: uuid()
+    .primaryKey()
+    .default(sql`gen_random_uuid()`),
+  representativeId: uuid()
+    .notNull()
+    .references(() => representativesTable.id),
+});

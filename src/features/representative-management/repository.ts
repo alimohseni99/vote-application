@@ -1,5 +1,5 @@
 import { Db } from "@/db";
-import { representativesTable } from "./schema/schema";
+import { representativesTable, votersTable } from "./schema/schema";
 import { Representative } from "./type";
 
 export function createRepository(db: Db) {
@@ -12,6 +12,10 @@ export function createRepository(db: Db) {
         .insert(representativesTable)
         .values(representative)
         .execute();
+    },
+
+    async addPublicVote(id: string, representativeId: string) {
+      await db.insert(votersTable).values({ id, representativeId }).execute();
     },
   };
 }

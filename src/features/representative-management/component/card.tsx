@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -6,14 +8,24 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import Image from "next/image";
+import { AddPublicVote } from "../action";
 
 type Props = {
   name: string;
   email: string;
   votes: number;
+  representativeId: string;
 };
 
-export async function RepresentativeCard({ name, email, votes }: Props) {
+export function RepresentativeCard({
+  name,
+  email,
+  votes,
+  representativeId,
+}: Props) {
+  const onClick = () => {
+    AddPublicVote(representativeId);
+  };
   return (
     <Card className="w-[350px] rounded-lg shadow-lg border border-gray-200 hover:shadow-xl transition-shadow duration-300 mt-2 ml-2">
       <CardHeader className="bg-gray-50 p-4 text-gray-800 rounded-t-lg text-center">
@@ -39,7 +51,9 @@ export async function RepresentativeCard({ name, email, votes }: Props) {
       </CardContent>
 
       <CardFooter className="bg-gray-10 p-4 rounded-b-lg flex justify-center">
-        <Button className="w-32">Vote</Button>
+        <Button className="w-32" onClick={onClick}>
+          Vote
+        </Button>
       </CardFooter>
     </Card>
   );

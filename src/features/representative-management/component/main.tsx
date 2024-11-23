@@ -4,17 +4,17 @@ import { LeaderBoard } from "./leaderboard";
 
 export async function Main() {
   const representatives = await chatService.getAllRepresentatives();
-
   return (
     <>
       <main className="grid grid-cols-5 ">
         <section className="grid grid-cols-3 col-span-3">
-          {representatives.map((representative, index) => (
+          {representatives.map((representative, id) => (
             <RepresentativeCard
-              key={index}
+              key={id}
               name={representative.name}
               email={representative.email}
               votes={representative.votes}
+              representativeId={representative.id}
             />
           ))}
         </section>
