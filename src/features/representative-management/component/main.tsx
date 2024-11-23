@@ -6,7 +6,7 @@ export async function Main() {
 
   return (
     <>
-      <main>
+      <main className="grid grid-cols-3 gap-2">
         {representatives.map((representatives, index) => (
           <div key={index}>
             <RepresentativeCard
