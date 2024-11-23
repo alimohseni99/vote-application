@@ -1,3 +1,3 @@
 export function LeaderBoard() {
-  return <div>LeaderBoard</div>;
+  return <div className="font-semibold">LeaderBoard</div>;
 }

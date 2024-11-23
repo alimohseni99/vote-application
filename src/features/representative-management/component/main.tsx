@@ -8,7 +8,7 @@ export async function Main() {
   return (
     <>
       <main className="grid grid-cols-5 gap-2">
-        <div className="grid grid-cols-3 gap-2 col-span-3">
+        <section className="grid grid-cols-3 gap-2 col-span-3">
           {representatives.map((representative, index) => (
             <RepresentativeCard
               key={index}
@@ -16,9 +16,9 @@ export async function Main() {
               email={representative.email}
             />
           ))}
-        </div>
+        </section>
 
-        <div className="col-span-2">
+        <div className="col-span-2 justify-center text-center m-4">
           <LeaderBoard />
         </div>
       </main>
