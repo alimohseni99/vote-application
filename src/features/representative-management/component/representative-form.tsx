@@ -17,19 +17,44 @@ export function RepresentativeForm() {
 
   return (
     <Form {...form}>
-      <form action={addRepresentative} className="space-y-8">
+      <form
+        action={addRepresentative}
+        className="space-y-6 p-6 shadow-md rounded-lg max-w-md mx-auto border"
+      >
+        <h2 className="text-xl font-semibold text-center">
+          Add Representative
+        </h2>
+
         <FormItem>
-          <FormLabel>Name</FormLabel>
+          <FormLabel className="text-sm font-medium">Name</FormLabel>
           <FormControl>
-            <Input name="name" />
-          </FormControl>{" "}
-          <FormLabel>Email</FormLabel>
-          <FormControl>
-            <Input name="email" />
+            <Input
+              name="name"
+              placeholder="Enter representative name"
+              className="mt-1 block w-full rounded-md border shadow-sm"
+            />
           </FormControl>
           <FormMessage />
         </FormItem>
-        <Button type="submit">Submit</Button>
+
+        <FormItem>
+          <FormLabel className="text-sm font-medium">Email</FormLabel>
+          <FormControl>
+            <Input
+              name="email"
+              type="email"
+              placeholder="Enter representative email"
+              className="mt-1 block w-full rounded-md border shadow-sm"
+            />
+          </FormControl>
+          <FormMessage />
+        </FormItem>
+
+        <div className="text-center">
+          <Button type="submit" className="w-full py-2 px-4 rounded-lg">
+            Submit
+          </Button>
+        </div>
       </form>
     </Form>
   );

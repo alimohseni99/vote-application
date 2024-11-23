@@ -2,8 +2,7 @@ import { RepresentativeForm } from "@/features/representative-management/compone
 
 export default function AddRepresentativeForm() {
   return (
-    <div>
-      <h1>Add a Representative</h1>
+    <div className="mt-20">
       <RepresentativeForm />
     </div>
   );
