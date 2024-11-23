@@ -6,8 +6,7 @@ export function createService(db: Db) {
 
   return {
     async getAllRepresentatives() {
-      const representatives = repository.getAllRepresentatives();
-      return representatives;
+      return await repository.getAllRepresentatives();
     },
   };
 }
