@@ -30,6 +30,7 @@ export function RepresentativeForm() {
 
   const onSubmit = (values: z.infer<typeof representativeSchema>) => {
     addRepresentative({ ...values, votes: 0 });
+    form.reset();
   };
 
   return (

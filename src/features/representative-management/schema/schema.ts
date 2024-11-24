@@ -31,8 +31,8 @@ export const electionTable = pgTable("election", {
     .primaryKey()
     .default(sql`gen_random_uuid()`),
   title: varchar({ length: 50 }).notNull(),
-  createdTimeStamp: timestamp().notNull().defaultNow(),
   active: boolean().notNull().default(true),
+  createdTimeStamp: timestamp().notNull().defaultNow(),
   deactivatedTimeStamp: timestamp(),
 });
 export const electionOptionsTable = pgTable("election_options", {

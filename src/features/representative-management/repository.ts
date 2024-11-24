@@ -1,11 +1,12 @@
 import { Db } from "@/db";
 import { and, eq, sql } from "drizzle-orm";
 import {
+  electionOptionsTable,
   electionTable,
   representativesTable,
   votersTable,
 } from "./schema/schema";
-import { Election, Representative } from "./type";
+import { Election, ElectionOptions, Representative } from "./type";
 
 export function createRepository(db: Db) {
   return {
@@ -49,8 +50,21 @@ export function createRepository(db: Db) {
       return result.length > 0;
     },
 
-    async addElection(election: Election) {
-      await db.insert(electionTable).values(election);
+    async addElection(election: Election, electionOption: ElectionOptions) {
+      const [electionInsert] = await db
+        .insert(electionTable)
+        .values(election)
+        .returning({ id: electionTable.id });
+
+      if (!electionInsert) {
+        return;
+      } else {
+        for (const optionText of electionOption.optionText) {
+          await db
+            .insert(electionOptionsTable)
+            .values({ electionId: electionInsert.id, optionText });
+        }
+      }
     },
   };
 }

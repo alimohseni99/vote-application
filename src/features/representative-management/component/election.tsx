@@ -13,8 +13,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { addElection } from "../action";
 
-const representativeSchema = z.object({
+const electionSchema = z.object({
   title: z.string().min(1, "This field is required"),
   optionA: z.string().min(1, "This field is required"),
   optionB: z.string().min(1, "This field is required"),
@@ -23,9 +24,10 @@ const representativeSchema = z.object({
 });
 
 export function Election() {
-  const form = useForm<z.infer<typeof representativeSchema>>({
-    resolver: zodResolver(representativeSchema),
+  const form = useForm<z.infer<typeof electionSchema>>({
+    resolver: zodResolver(electionSchema),
     defaultValues: {
+      title: "",
       optionA: "",
       optionB: "",
       optionC: "",
@@ -33,8 +35,19 @@ export function Election() {
     },
   });
 
-  const onSubmit = (values: z.infer<typeof representativeSchema>) => {
-    console.log(values);
+  const onSubmit = (values: z.infer<typeof electionSchema>) => {
+    const election = { title: values.title, active: true };
+    const options = {
+      optionText: [
+        values.optionA,
+        values.optionB,
+        values.optionC,
+        values.optionD,
+      ],
+    };
+
+    addElection(election, options);
+    form.reset();
   };
 
   return (
@@ -76,7 +89,6 @@ export function Election() {
           <FormControl>
             <Input
               {...form.register("optionB")}
-              type="email"
               placeholder="Enter option B"
               className="mt-1 block w-full rounded-md border shadow-sm"
             />
@@ -89,7 +101,6 @@ export function Election() {
           <FormControl>
             <Input
               {...form.register("optionC")}
-              type="email"
               placeholder="Enter option C"
               className="mt-1 block w-full rounded-md border shadow-sm"
             />
@@ -102,7 +113,6 @@ export function Election() {
           <FormControl>
             <Input
               {...form.register("optionD")}
-              type="email"
               placeholder="Enter option D"
               className="mt-1 block w-full rounded-md border shadow-sm"
             />

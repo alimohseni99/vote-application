@@ -1,6 +1,6 @@
 import { Db } from "@/db";
 import { createRepository } from "./repository";
-import { Election, Representative } from "./type";
+import { Election, ElectionOptions, Representative } from "./type";
 
 export function createService(db: Db) {
   const repository = createRepository(db);
@@ -24,8 +24,8 @@ export function createService(db: Db) {
         representativeId
       );
     },
-    async addElection(election: Election) {
-      return await repository.addElection(election);
+    async addElection(election: Election, electionOption: ElectionOptions) {
+      return await repository.addElection(election, electionOption);
     },
   };
 }
