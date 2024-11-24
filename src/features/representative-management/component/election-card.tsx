@@ -24,7 +24,7 @@ type Props = {
 
 export function ElectionCard({ title, time, options }: Props) {
   return (
-    <Card className="!w-[350px] space-y-6 p-6 shadow-md rounded-lg mx-auto border mt-20">
+    <Card className="!w-[350px] p-6 shadow-md rounded-lg mx-auto border mt-20">
       <CardHeader>
         <CardTitle>
           <strong>Title: </strong>: {title}
@@ -54,8 +54,11 @@ export function ElectionCard({ title, time, options }: Props) {
           </div>
         </form>
       </CardContent>
-      <CardFooter className="flex justify-end">
+      <CardFooter className="flex justify-center">
         <Button>VOTE</Button>
+      </CardFooter>
+      <CardFooter className="flex justify-center ">
+        <Button>Choose a preference</Button>
       </CardFooter>
     </Card>
   );
