@@ -31,5 +31,16 @@ export function createService(db: Db) {
     async getAllElection() {
       return await repository.getAllElection();
     },
+    async representativeVoteOnElection(
+      representativeId: string,
+      electionId: string,
+      choice: string
+    ) {
+      return await repository.representativeVoteOnElection(
+        representativeId,
+        electionId,
+        choice
+      );
+    },
   };
 }

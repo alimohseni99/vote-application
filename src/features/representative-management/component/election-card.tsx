@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -7,7 +9,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
 import {
   Select,
   SelectContent,
@@ -15,14 +16,37 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useState } from "react";
+import { representativeVoteOnElection } from "../action";
 
 type Props = {
   title: string;
   time: Date;
   options: string[];
+  electionId: string;
 };
 
-export function ElectionCard({ title, time, options }: Props) {
+export function ElectionCard({ title, time, options, electionId }: Props) {
+  const [selectedOption, setSelectedOption] = useState<string | null>(null);
+
+  const onClickRepresentative = () => {
+    if (selectedOption) {
+      representativeVoteOnElection(electionId, selectedOption);
+      alert("Thank you for voting");
+    } else {
+      alert("Please select an option before voting.");
+    }
+  };
+
+  const onClickPublic = () => {
+    if (selectedOption) {
+      publicVoteOnElection(electionId, selectedOption);
+      alert("Thank you for choosing a preference");
+    } else {
+      alert("Please select an option before choosing.");
+    }
+  };
+
   return (
     <Card className="!w-[350px] p-6 shadow-md rounded-lg mx-auto border mt-20">
       <CardHeader>
@@ -34,28 +58,21 @@ export function ElectionCard({ title, time, options }: Props) {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <form>
-          <div className="grid w-full items-center gap-4">
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="framework">Option</Label>
-              <Select>
-                <SelectTrigger id="framework">
-                  <SelectValue placeholder="Select" />
-                </SelectTrigger>
-                <SelectContent position="popper">
-                  {options.map((option, index) => (
-                    <SelectItem key={`${option}-${index}`} value={option}>
-                      {option}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-          </div>
-        </form>
+        <Select onValueChange={(value) => setSelectedOption(value)}>
+          <SelectTrigger id="framework">
+            <SelectValue placeholder="Select" />
+          </SelectTrigger>
+          <SelectContent position="popper">
+            {options.map((option, index) => (
+              <SelectItem key={`${option}-${index}`} value={option}>
+                {option}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </CardContent>
       <CardFooter className="flex justify-center">
-        <Button>VOTE</Button>
+        <Button onClick={onClickRepresentative}>Vote</Button>
       </CardFooter>
       <CardFooter className="flex justify-center ">
         <Button>Choose a preference</Button>

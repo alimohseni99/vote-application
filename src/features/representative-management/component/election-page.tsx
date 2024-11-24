@@ -3,7 +3,6 @@ import { ElectionCard } from "./election-card";
 
 export async function ElectionPage() {
   const elections = await chatService.getAllElection();
-  console.log(elections);
 
   return (
     <div className="flex">
@@ -13,6 +12,7 @@ export async function ElectionPage() {
           title={election.title}
           time={election.createdTimeStamp}
           options={election.optionText}
+          electionId={election.id}
         />
       ))}
     </div>

@@ -34,8 +34,9 @@ export async function checkForDuplicateVote(
 
 export async function AddPublicVote(representativeId: string) {
   const publicVoters = "e3b0c442-98fc-1c14-9afb-14f7ec8b6ad6";
+  const check = await checkForDuplicateVote(representativeId);
 
-  if (await checkForDuplicateVote(representativeId)) {
+  if (check) {
     throw new Error("You already voted in this election");
   }
   await chatService.addPublicVote(publicVoters, representativeId);
@@ -45,4 +46,19 @@ export async function AddPublicVote(representativeId: string) {
 
 export async function addElection(election: Election) {
   await chatService.addElection(election);
+}
+
+export async function representativeVoteOnElection(
+  electionId: string,
+  choice: string
+) {
+  const representativesId = "9b38f6b0-62af-4c9d-b1b8-d94fcf0e7c12";
+
+  console.log({ electionId, choice });
+
+  await chatService.representativeVoteOnElection(
+    representativesId,
+    electionId,
+    choice
+  );
 }
