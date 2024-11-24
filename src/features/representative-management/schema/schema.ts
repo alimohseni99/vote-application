@@ -16,7 +16,7 @@ export const representativesTable = pgTable("representative", {
   email: varchar({ length: 255 }).notNull().unique(),
   votes: integer().notNull().default(0),
 });
-export const votersTable = pgTable("voter", {
+export const votersTable = pgTable("public_voter", {
   id: uuid()
     .primaryKey()
     .default(sql`gen_random_uuid()`),

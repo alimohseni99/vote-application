@@ -22,15 +22,15 @@ export function createRepository(db: Db) {
     async addPublicVote(publicVoterId: string, representativeId: string) {
       const publicVote = await db
         .insert(votersTable)
-        .values({ publicVoterId, representativeId })
-        .execute();
+        .values({ publicVoterId, representativeId });
       if (!publicVote) {
         throw new Error("Something went wrong");
       }
 
       await db
         .update(representativesTable)
-        .set({ votes: sql`${representativesTable.votes} +1` });
+        .set({ votes: sql`${representativesTable.votes} +1` })
+        .where(eq(representativesTable.id, representativeId));
     },
     async checkForDuplicateVote(
       publicVoterId: string,
