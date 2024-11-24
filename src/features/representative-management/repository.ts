@@ -2,6 +2,7 @@ import { Db } from "@/db";
 import { and, eq, sql } from "drizzle-orm";
 import {
   electionTable,
+  publicVotesTable,
   representativesTable,
   representativeVotesTable,
   votersTable,
@@ -20,10 +21,10 @@ export function createRepository(db: Db) {
         .execute();
     },
 
-    async addPublicVote(publicVoterId: string, representativeId: string) {
+    async addPublicVote(id: string, representativeId: string) {
       const publicVote = await db
         .insert(votersTable)
-        .values({ publicVoterId, representativeId });
+        .values({ id, representativeId });
       if (!publicVote) {
         throw new Error("Something went wrong");
       }
@@ -42,7 +43,7 @@ export function createRepository(db: Db) {
         .from(votersTable)
         .where(
           and(
-            eq(votersTable.publicVoterId, publicVoterId),
+            eq(votersTable.id, publicVoterId),
             eq(votersTable.representativeId, representativeId)
           )
         );
@@ -65,6 +66,15 @@ export function createRepository(db: Db) {
       return db
         .insert(representativeVotesTable)
         .values({ representativeId, electionId, choice });
+    },
+    async publicVoteOnElection(
+      publicVotersId: string,
+      electionId: string,
+      choice: string
+    ) {
+      return db
+        .insert(publicVotesTable)
+        .values({ publicVotersId, electionId, choice });
     },
   };
 }

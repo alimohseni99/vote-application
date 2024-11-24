@@ -3,6 +3,7 @@
 import { revalidatePath } from "next/cache";
 import { chatService } from "./instance";
 import { Election, Representative } from "./type";
+const publicVoters = "e3b0c442-98fc-1c14-9afb-14f7ec8b6ad6";
 
 export async function addRepresentative({ name, email }: Representative) {
   if (!name || !email) {
@@ -20,7 +21,6 @@ export async function addRepresentative({ name, email }: Representative) {
 export async function checkForDuplicateVote(
   representativeId: string
 ): Promise<boolean> {
-  const publicVoters = "e3b0c442-98fc-1c14-9afb-14f7ec8b6ad6";
   const duplicateVotes = await chatService.checkForDuplicateVotes(
     publicVoters,
     representativeId
@@ -33,7 +33,6 @@ export async function checkForDuplicateVote(
 }
 
 export async function AddPublicVote(representativeId: string) {
-  const publicVoters = "e3b0c442-98fc-1c14-9afb-14f7ec8b6ad6";
   const check = await checkForDuplicateVote(representativeId);
 
   if (check) {
@@ -54,11 +53,14 @@ export async function representativeVoteOnElection(
 ) {
   const representativesId = "9b38f6b0-62af-4c9d-b1b8-d94fcf0e7c12";
 
-  console.log({ electionId, choice });
-
   await chatService.representativeVoteOnElection(
     representativesId,
     electionId,
     choice
   );
+}
+
+export async function publicVoteOnElection(electionId: string, choice: string) {
+  console.log({ electionId, choice });
+  await chatService.publicVoteOnElection(publicVoters, electionId, choice);
 }

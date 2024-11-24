@@ -17,7 +17,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useState } from "react";
-import { representativeVoteOnElection } from "../action";
+import { publicVoteOnElection, representativeVoteOnElection } from "../action";
 
 type Props = {
   title: string;
@@ -75,7 +75,7 @@ export function ElectionCard({ title, time, options, electionId }: Props) {
         <Button onClick={onClickRepresentative}>Vote</Button>
       </CardFooter>
       <CardFooter className="flex justify-center ">
-        <Button>Choose a preference</Button>
+        <Button onClick={onClickPublic}>Choose a preference</Button>
       </CardFooter>
     </Card>
   );

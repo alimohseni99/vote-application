@@ -32,9 +32,7 @@ export const votersTable = pgTable("public_voter", {
   id: uuid()
     .primaryKey()
     .default(sql`gen_random_uuid()`),
-  publicVoterId: uuid().notNull(),
   representativeId: uuid().references(() => representativesTable.id),
-  electionId: uuid().references(() => electionTable.id),
 });
 
 export const representativeVotesTable = pgTable("representative_votesTable", {
@@ -54,7 +52,7 @@ export const publicVotesTable = pgTable("public_votesTable", {
   id: uuid()
     .primaryKey()
     .default(sql`gen_random_uuid()`),
-  representativeId: uuid()
+  publicVotersId: uuid()
     .notNull()
     .references(() => votersTable.id),
   electionId: uuid()

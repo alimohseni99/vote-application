@@ -42,5 +42,16 @@ export function createService(db: Db) {
         choice
       );
     },
+    async publicVoteOnElection(
+      publicVotersId: string,
+      electionId: string,
+      choice: string
+    ) {
+      return await repository.publicVoteOnElection(
+        publicVotersId,
+        electionId,
+        choice
+      );
+    },
   };
 }
