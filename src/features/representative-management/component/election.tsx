@@ -15,6 +15,7 @@ import {
 import { Input } from "@/components/ui/input";
 
 const representativeSchema = z.object({
+  title: z.string().min(1, "This field is required"),
   optionA: z.string().min(1, "This field is required"),
   optionB: z.string().min(1, "This field is required"),
   optionC: z.string().min(1, "This field is required"),
@@ -47,6 +48,18 @@ export function Election() {
         </h2>
 
         <FormItem>
+          <FormLabel className="text-sm font-medium">Election Title</FormLabel>
+          <FormControl>
+            <Input
+              {...form.register("title")}
+              placeholder="Enter Election title"
+              className="mt-1 block w-full rounded-md border shadow-sm"
+            />
+          </FormControl>
+          <FormMessage>{form.formState.errors.optionA?.message}</FormMessage>
+        </FormItem>
+
+        <FormItem>
           <FormLabel className="text-sm font-medium">Option A</FormLabel>
           <FormControl>
             <Input
@@ -75,7 +88,7 @@ export function Election() {
           <FormLabel className="text-sm font-medium">Option C</FormLabel>
           <FormControl>
             <Input
-              {...form.register("optionB")}
+              {...form.register("optionC")}
               type="email"
               placeholder="Enter option C"
               className="mt-1 block w-full rounded-md border shadow-sm"
@@ -88,7 +101,7 @@ export function Election() {
           <FormLabel className="text-sm font-medium">Option D</FormLabel>
           <FormControl>
             <Input
-              {...form.register("optionB")}
+              {...form.register("optionD")}
               type="email"
               placeholder="Enter option D"
               className="mt-1 block w-full rounded-md border shadow-sm"
