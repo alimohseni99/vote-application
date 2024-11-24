@@ -32,7 +32,7 @@ export const electionTable = pgTable("election", {
     .default(sql`gen_random_uuid()`),
   title: varchar({ length: 50 }).notNull(),
   createdTimeStamp: timestamp().notNull().defaultNow(),
-  active: boolean(),
+  active: boolean().notNull().default(true),
   deactivatedTimeStamp: timestamp(),
 });
 export const electionOptionsTable = pgTable("election_options", {
