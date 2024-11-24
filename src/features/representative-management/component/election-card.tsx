@@ -45,9 +45,8 @@ export function ElectionCard() {
           </div>
         </form>
       </CardContent>
-      <CardFooter className="flex justify-between">
-        <Button variant="outline">Cancel</Button>
-        <Button>Deploy</Button>
+      <CardFooter className="flex justify-end">
+        <Button>VOTE</Button>
       </CardFooter>
     </Card>
   );
