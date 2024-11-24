@@ -3,3 +3,10 @@ export type Representative = {
   email: string;
   votes: number;
 };
+
+export type Election = {
+  optionA: string;
+  optionB: string;
+  optionC: string;
+  optionD: string;
+};

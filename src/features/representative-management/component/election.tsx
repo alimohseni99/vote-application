@@ -8,60 +8,99 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
-  FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { toast } from "@/hooks/use-toast";
 
-const FormSchema = z.object({
-  username: z.string().min(2, {
-    message: "Username must be at least 2 characters.",
-  }),
+const representativeSchema = z.object({
+  optionA: z.string().min(1, "This field is required"),
+  optionB: z.string().min(1, "This field is required"),
+  optionC: z.string().min(1, "This field is required"),
+  optionD: z.string().min(1, "This field is required"),
 });
 
 export function Election() {
-  const form = useForm<z.infer<typeof FormSchema>>({
-    resolver: zodResolver(FormSchema),
+  const form = useForm<z.infer<typeof representativeSchema>>({
+    resolver: zodResolver(representativeSchema),
     defaultValues: {
-      username: "",
+      optionA: "",
+      optionB: "",
+      optionC: "",
+      optionD: "",
     },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    toast({
-      title: "You submitted the following values:",
-      description: (
-        <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-          <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-    });
-  }
+  const onSubmit = (values: z.infer<typeof representativeSchema>) => {
+    console.log(values);
+  };
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="w-2/3 space-y-6">
-        <FormField
-          control={form.control}
-          name="username"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Username</FormLabel>
-              <FormControl>
-                <Input placeholder="shadcn" {...field} />
-              </FormControl>
-              <FormDescription>
-                This is your public display name.
-              </FormDescription>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <Button type="submit">Submit</Button>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="space-y-6 p-6 shadow-md rounded-lg max-w-md mx-auto border mt-20"
+      >
+        <h2 className="text-xl font-semibold text-center">
+          Create an Election
+        </h2>
+
+        <FormItem>
+          <FormLabel className="text-sm font-medium">Option A</FormLabel>
+          <FormControl>
+            <Input
+              {...form.register("optionA")}
+              placeholder="Enter option A"
+              className="mt-1 block w-full rounded-md border shadow-sm"
+            />
+          </FormControl>
+          <FormMessage>{form.formState.errors.optionA?.message}</FormMessage>
+        </FormItem>
+
+        <FormItem>
+          <FormLabel className="text-sm font-medium">Option B</FormLabel>
+          <FormControl>
+            <Input
+              {...form.register("optionB")}
+              type="email"
+              placeholder="Enter option B"
+              className="mt-1 block w-full rounded-md border shadow-sm"
+            />
+          </FormControl>
+          <FormMessage>{form.formState.errors.optionB?.message}</FormMessage>
+        </FormItem>
+
+        <FormItem>
+          <FormLabel className="text-sm font-medium">Option C</FormLabel>
+          <FormControl>
+            <Input
+              {...form.register("optionB")}
+              type="email"
+              placeholder="Enter option C"
+              className="mt-1 block w-full rounded-md border shadow-sm"
+            />
+          </FormControl>
+          <FormMessage>{form.formState.errors.optionB?.message}</FormMessage>
+        </FormItem>
+
+        <FormItem>
+          <FormLabel className="text-sm font-medium">Option D</FormLabel>
+          <FormControl>
+            <Input
+              {...form.register("optionB")}
+              type="email"
+              placeholder="Enter option D"
+              className="mt-1 block w-full rounded-md border shadow-sm"
+            />
+          </FormControl>
+          <FormMessage>{form.formState.errors.optionB?.message}</FormMessage>
+        </FormItem>
+        <div className="text-center">
+          <Button type="submit" className="w-full py-2 px-4 rounded-lg">
+            Submit
+          </Button>
+        </div>
       </form>
     </Form>
   );

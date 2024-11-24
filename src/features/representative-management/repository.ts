@@ -1,7 +1,11 @@
 import { Db } from "@/db";
 import { and, eq, sql } from "drizzle-orm";
-import { representativesTable, votersTable } from "./schema/schema";
-import { Representative } from "./type";
+import {
+  electionTable,
+  representativesTable,
+  votersTable,
+} from "./schema/schema";
+import { Election, Representative } from "./type";
 
 export function createRepository(db: Db) {
   return {
@@ -43,6 +47,10 @@ export function createRepository(db: Db) {
         );
 
       return result.length > 0;
+    },
+
+    async addElection(election: Election) {
+      await db.insert(electionTable).values(election);
     },
   };
 }
