@@ -1,5 +1,5 @@
 import { Election } from "@/features/";
 
-export default function ElectionPage() {
+export default function addElectionPage() {
   return <Election />;
 }

@@ -23,7 +23,7 @@ export function Navbar() {
                   Statistics
                 </NavigationMenuLink>
               </Link>
-              <Link href="/vote" legacyBehavior passHref>
+              <Link href="/election-vote" legacyBehavior passHref>
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                   Election Vote
                 </NavigationMenuLink>
