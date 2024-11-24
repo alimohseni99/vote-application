@@ -1,5 +1,19 @@
+import { chatService } from "../instance";
 import { ElectionCard } from "./election-card";
 
-export function ElectionPage() {
-  return <ElectionCard />;
+export async function ElectionPage() {
+  const elections = await chatService.getAllElection();
+  console.log(elections);
+
+  return (
+    <div className="grid grid-cols-4">
+      {elections.map((election, id) => (
+        <ElectionCard
+          key={id}
+          title={election.election.title}
+          time={election.election.createdTimeStamp}
+        />
+      ))}
+    </div>
+  );
 }

@@ -6,11 +6,8 @@ export type Representative = {
 
 export type Election = {
   title: string;
+  optionText: string[];
   active: boolean;
   createdTimeStamp?: Date;
   deactivatedTimeStamp?: Date;
-};
-
-export type ElectionOptions = {
-  optionText: string[];
 };

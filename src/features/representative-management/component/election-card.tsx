@@ -16,13 +16,23 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 
-export function ElectionCard() {
+type Props = {
+  title: string;
+  time: Date;
+};
+
+export function ElectionCard({ title, time }: Props) {
   return (
-    <Card className="space-y-6 p-6 shadow-md rounded-lg max-w-md mx-auto border mt-20">
+    <Card className="!w-[350px] space-y-6 p-6 shadow-md rounded-lg mx-auto border mt-20">
       <CardHeader>
-        <CardTitle>Vote NOW</CardTitle>
+        <CardTitle>
+          <strong>Title: </strong>: {title}
+        </CardTitle>
         <CardDescription>
-          Make your voice count! Cast your vote and be part of the change.
+          <p>
+            Make your voice count! Cast your vote and be part of the change.
+          </p>
+          <p>Time: {time.toLocaleString()}</p>
         </CardDescription>
       </CardHeader>
       <CardContent>

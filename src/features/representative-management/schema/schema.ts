@@ -34,13 +34,5 @@ export const electionTable = pgTable("election", {
   active: boolean().notNull().default(true),
   createdTimeStamp: timestamp().notNull().defaultNow(),
   deactivatedTimeStamp: timestamp(),
-});
-export const electionOptionsTable = pgTable("election_options", {
-  id: uuid()
-    .primaryKey()
-    .default(sql`gen_random_uuid()`),
-  electionId: uuid()
-    .references(() => electionTable.id)
-    .notNull(),
-  optionText: varchar({ length: 255 }).notNull(),
+  optionText: varchar().array().notNull(),
 });

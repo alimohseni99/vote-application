@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { chatService } from "./instance";
-import { Election, ElectionOptions, Representative } from "./type";
+import { Election, Representative } from "./type";
 
 export async function addRepresentative({ name, email }: Representative) {
   if (!name || !email) {
@@ -43,9 +43,6 @@ export async function AddPublicVote(representativeId: string) {
   revalidatePath("/");
 }
 
-export async function addElection(
-  election: Election,
-  electionOption: ElectionOptions
-) {
-  await chatService.addElection(election, electionOption);
+export async function addElection(election: Election) {
+  await chatService.addElection(election);
 }
