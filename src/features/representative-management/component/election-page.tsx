@@ -6,7 +6,7 @@ export async function ElectionPage() {
   console.log(elections);
 
   return (
-    <div className="grid grid-cols-4">
+    <div className="flex">
       {elections.map((election, id) => (
         <ElectionCard
           key={id}
