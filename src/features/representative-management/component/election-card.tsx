@@ -19,9 +19,10 @@ import {
 type Props = {
   title: string;
   time: Date;
+  options: string[];
 };
 
-export function ElectionCard({ title, time }: Props) {
+export function ElectionCard({ title, time, options }: Props) {
   return (
     <Card className="!w-[350px] space-y-6 p-6 shadow-md rounded-lg mx-auto border mt-20">
       <CardHeader>
@@ -29,9 +30,6 @@ export function ElectionCard({ title, time }: Props) {
           <strong>Title: </strong>: {title}
         </CardTitle>
         <CardDescription>
-          <p>
-            Make your voice count! Cast your vote and be part of the change.
-          </p>
           <p>Time: {time.toLocaleString()}</p>
         </CardDescription>
       </CardHeader>
@@ -45,10 +43,11 @@ export function ElectionCard({ title, time }: Props) {
                   <SelectValue placeholder="Select" />
                 </SelectTrigger>
                 <SelectContent position="popper">
-                  <SelectItem value="next">Next.js</SelectItem>
-                  <SelectItem value="sveltekit">SvelteKit</SelectItem>
-                  <SelectItem value="astro">Astro</SelectItem>
-                  <SelectItem value="nuxt">Nuxt.js</SelectItem>
+                  {options.map((option, index) => (
+                    <SelectItem key={`${option}-${index}`} value={option}>
+                      {option}
+                    </SelectItem>
+                  ))}
                 </SelectContent>
               </Select>
             </div>

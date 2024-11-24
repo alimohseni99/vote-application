@@ -10,8 +10,9 @@ export async function ElectionPage() {
       {elections.map((election, id) => (
         <ElectionCard
           key={id}
-          title={election.election.title}
-          time={election.election.createdTimeStamp}
+          title={election.title}
+          time={election.createdTimeStamp}
+          options={election.optionText}
         />
       ))}
     </div>
