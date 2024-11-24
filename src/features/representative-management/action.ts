@@ -35,6 +35,9 @@ export async function checkForDuplicateVote(
 export async function AddPublicVote(representativeId: string) {
   const publicVoters = "e3b0c442-98fc-1c14-9afb-14f7ec8b6ad6";
 
+  if (await checkForDuplicateVote(representativeId)) {
+    throw new Error("You already voted in this election");
+  }
   await chatService.addPublicVote(publicVoters, representativeId);
 
   revalidatePath("/");

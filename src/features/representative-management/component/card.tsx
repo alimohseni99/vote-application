@@ -16,7 +16,6 @@ type Props = {
   email: string;
   votes: number;
   representativeId: string;
-  disabled: boolean;
 };
 
 export function RepresentativeCard({
@@ -24,11 +23,18 @@ export function RepresentativeCard({
   email,
   votes,
   representativeId,
-  disabled,
 }: Props) {
   const onClick = async () => {
-    await AddPublicVote(representativeId);
-    alert("Thank you for your vote");
+    try {
+      await AddPublicVote(representativeId);
+      alert("Thank you for your vote");
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error.message);
+      } else {
+        alert("An unexpected error happened");
+      }
+    }
   };
 
   return (
@@ -57,7 +63,7 @@ export function RepresentativeCard({
         </CardContent>
 
         <CardFooter className="bg-gray-10 p-4 rounded-b-lg flex justify-center">
-          <Button className="w-32" onClick={onClick} disabled={disabled}>
+          <Button className="w-32" onClick={onClick}>
             Vote
           </Button>
         </CardFooter>

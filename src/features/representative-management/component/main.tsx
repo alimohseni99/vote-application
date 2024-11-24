@@ -22,7 +22,6 @@ export async function Main() {
             email={representative.email}
             votes={representative.votes}
             representativeId={representative.id}
-            disabled={representative.hasVoted}
           />
         ))}
       </section>
