@@ -7,6 +7,15 @@ export const electionTable = pgTable("election", {
     .default(sql`gen_random_uuid()`),
   title: varchar({ length: 50 }).notNull(),
   createdTimeStamp: timestamp().notNull().defaultNow(),
-  optionText: varchar({ length: 255 }).array().notNull(),
   status: varchar({ length: 50 }).notNull(), // can only be 'ongoing' or 'concluded'
+});
+
+export const electionChoicesTable = pgTable("election_choices", {
+  id: uuid()
+    .primaryKey()
+    .default(sql`gen_random_uuid()`),
+  electionId: uuid()
+    .notNull()
+    .references(() => electionTable.id),
+  choice: varchar({ length: 50 }).notNull(),
 });
