@@ -1,7 +1,7 @@
 import { sql } from "drizzle-orm";
 import { integer, pgTable, uuid, varchar } from "drizzle-orm/pg-core";
 
-export const representativesTable = pgTable("representative", {
+export const representativeTable = pgTable("representative", {
   id: uuid()
     .primaryKey()
     .default(sql`gen_random_uuid()`),
@@ -9,4 +9,3 @@ export const representativesTable = pgTable("representative", {
   email: varchar({ length: 255 }).notNull().unique(),
   publicVotes: integer().notNull().default(0),
 });
-
