@@ -1,6 +1,6 @@
 import { Db } from "@/db";
 import { createRepository } from "./repository";
-import { Election } from "./type";
+import { Election, ElectionChoice } from "./type";
 
 export function createService(db: Db) {
   const repository = createRepository(db);
@@ -9,8 +9,8 @@ export function createService(db: Db) {
     async getAllElection() {
       return await repository.getAllElection();
     },
-    async addElection(election: Election) {
-      return await repository.addElection(election);
+    async addElection(election: Election, electionChoice: ElectionChoice[]) {
+      return await repository.addElection(election, electionChoice);
     },
   };
 }

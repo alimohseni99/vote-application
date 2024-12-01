@@ -1,7 +1,10 @@
 "use server";
 import { electionService } from "./instance";
-import { Election } from "./type";
+import { Election, ElectionChoice } from "./type";
 
-export async function addElection(election: Election) {
-  await electionService.addElection(election);
+export async function addElection(
+  election: Election,
+  electionChoices: ElectionChoice[]
+) {
+  await electionService.addElection(election, electionChoices);
 }

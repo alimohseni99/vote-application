@@ -14,7 +14,7 @@ export const electionTable = pgTable("election", {
     .default(sql`gen_random_uuid()`),
   title: varchar({ length: 50 }).notNull(),
   createdTimeStamp: timestamp().notNull().defaultNow(),
-  status: varchar({ length: 50 }).notNull(), // can only be 'ongoing' or 'concluded'
+  status: varchar({ length: 50 }).notNull().default("ongoing"),
 });
 
 export const electionChoicesTable = pgTable("election_choices", {
