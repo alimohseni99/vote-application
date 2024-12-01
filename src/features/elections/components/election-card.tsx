@@ -60,8 +60,8 @@ export function ElectionCard({ title, time, options }: Props) {
             <SelectValue placeholder="Select" />
           </SelectTrigger>
           <SelectContent position="popper">
-            {options.map((option, index) => (
-              <SelectItem key={`${option}-${index}`} value={option}>
+            {options.map((option) => (
+              <SelectItem key={option} value={option}>
                 {option}
               </SelectItem>
             ))}
