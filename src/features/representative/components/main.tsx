@@ -1,26 +1,18 @@
-import { checkForDuplicateVote } from "../action";
 import { representativeService } from "../instance";
 import { RepresentativeCard } from "./card";
 import { LeaderBoard } from "./leaderboard";
 export async function Main() {
   const representatives = await representativeService.getAllRepresentatives();
 
-  const userHasVotedForRepresentatives = await Promise.all(
-    representatives.map(async (representative) => {
-      const hasVoted = await checkForDuplicateVote(representative.id);
-      return { ...representative, hasVoted };
-    })
-  );
-
   return (
     <main className="grid grid-cols-5 ">
       <section className="grid grid-cols-3 col-span-3">
-        {userHasVotedForRepresentatives.map((representative, id) => (
+        {representatives.map((representative, id) => (
           <RepresentativeCard
             key={id}
             name={representative.name}
             email={representative.email}
-            votes={representative.votes}
+            votes={representative.publicVotes}
             representativeId={representative.id}
           />
         ))}

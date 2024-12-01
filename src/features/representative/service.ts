@@ -12,17 +12,8 @@ export function createService(db: Db) {
     async addRepresentative(representative: Representative) {
       return await repository.addRepresentative(representative);
     },
-    async addPublicVote(id: string, representativeId: string) {
-      await repository.addPublicVote(id, representativeId);
-    },
-    async checkForDuplicateVotes(
-      publicVoteId: string,
-      representativeId: string
-    ) {
-      return await repository.checkForDuplicateVote(
-        publicVoteId,
-        representativeId
-      );
+    async addPublicVote(representativeId: string) {
+      await repository.addPublicVote(representativeId);
     },
   };
 }
