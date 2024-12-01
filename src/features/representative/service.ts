@@ -1,6 +1,6 @@
 import { Db } from "@/db";
 import { createRepository } from "./repository";
-import { Election, Representative } from "./type";
+import { Representative } from "./type";
 
 export function createService(db: Db) {
   const repository = createRepository(db);
@@ -22,35 +22,6 @@ export function createService(db: Db) {
       return await repository.checkForDuplicateVote(
         publicVoteId,
         representativeId
-      );
-    },
-    async addElection(election: Election) {
-      return await repository.addElection(election);
-    },
-
-    async getAllElection() {
-      return await repository.getAllElection();
-    },
-    async representativeVoteOnElection(
-      representativeId: string,
-      electionId: string,
-      choice: string
-    ) {
-      return await repository.representativeVoteOnElection(
-        representativeId,
-        electionId,
-        choice
-      );
-    },
-    async publicVoteOnElection(
-      publicVotersId: string,
-      electionId: string,
-      choice: string
-    ) {
-      return await repository.publicVoteOnElection(
-        publicVotersId,
-        electionId,
-        choice
       );
     },
   };

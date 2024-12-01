@@ -17,7 +17,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useState } from "react";
-import { publicVoteOnElection, representativeVoteOnElection } from "../action";
 
 type Props = {
   title: string;
@@ -26,12 +25,11 @@ type Props = {
   electionId: string;
 };
 
-export function ElectionCard({ title, time, options, electionId }: Props) {
+export function ElectionCard({ title, time, options }: Props) {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
   const onClickRepresentative = () => {
     if (selectedOption) {
-      representativeVoteOnElection(electionId, selectedOption);
       alert("Thank you for voting");
     } else {
       alert("Please select an option before voting.");
@@ -40,7 +38,6 @@ export function ElectionCard({ title, time, options, electionId }: Props) {
 
   const onClickPublic = () => {
     if (selectedOption) {
-      publicVoteOnElection(electionId, selectedOption);
       alert("Thank you for choosing a preference");
     } else {
       alert("Please select an option before choosing.");

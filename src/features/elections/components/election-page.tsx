@@ -1,8 +1,8 @@
-import { chatService } from "../instance";
+import { electionService } from "../instance";
 import { ElectionCard } from "./election-card";
 
 export async function ElectionPage() {
-  const elections = await chatService.getAllElection();
+  const elections = await electionService.getAllElection();
 
   return (
     <div className="flex">

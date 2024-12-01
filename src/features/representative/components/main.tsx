@@ -1,9 +1,9 @@
 import { checkForDuplicateVote } from "../action";
-import { chatService } from "../instance";
+import { representativeService } from "../instance";
 import { RepresentativeCard } from "./card";
 import { LeaderBoard } from "./leaderboard";
 export async function Main() {
-  const representatives = await chatService.getAllRepresentatives();
+  const representatives = await representativeService.getAllRepresentatives();
 
   const userHasVotedForRepresentatives = await Promise.all(
     representatives.map(async (representative) => {
