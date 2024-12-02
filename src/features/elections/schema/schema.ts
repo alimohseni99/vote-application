@@ -1,12 +1,5 @@
-import { representativeTable } from "@/features/representative/schema/schema";
 import { sql } from "drizzle-orm";
-import {
-  integer,
-  pgTable,
-  timestamp,
-  uuid,
-  varchar,
-} from "drizzle-orm/pg-core";
+import { pgTable, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
 
 export const electionTable = pgTable("election", {
   id: uuid()
@@ -25,22 +18,4 @@ export const electionChoicesTable = pgTable("election_choices", {
     .notNull()
     .references(() => electionTable.id),
   choice: varchar({ length: 50 }).notNull(),
-});
-
-export const votes = pgTable("votes", {
-  id: uuid()
-    .primaryKey()
-    .default(sql`gen_random_uuid()`),
-  electionId: uuid()
-    .notNull()
-    .references(() => electionTable.id),
-  electionChoiceId: uuid()
-    .notNull()
-    .references(() => electionChoicesTable.id),
-  representativeId: uuid()
-    .notNull()
-    .references(() => representativeTable.id),
-
-  publicVotes: integer().notNull(),
-  createdAt: timestamp().notNull().defaultNow(),
 });
