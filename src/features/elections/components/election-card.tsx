@@ -20,7 +20,7 @@ import { useState } from "react";
 
 type Props = {
   title: string;
-  time: Date;
+  time: Date["toISOString"];
   options: string[];
   electionId: string;
 };
@@ -60,11 +60,12 @@ export function ElectionCard({ title, time, options }: Props) {
             <SelectValue placeholder="Select" />
           </SelectTrigger>
           <SelectContent position="popper">
-            {options.map((option) => (
-              <SelectItem key={option} value={option}>
-                {option}
-              </SelectItem>
-            ))}
+            {Array.isArray(options) &&
+              options.map((option) => (
+                <SelectItem key={option} value={option}>
+                  {option}
+                </SelectItem>
+              ))}
           </SelectContent>
         </Select>
       </CardContent>

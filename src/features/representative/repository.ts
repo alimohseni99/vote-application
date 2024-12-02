@@ -3,7 +3,7 @@ import { eq, sql } from "drizzle-orm";
 import { representativeTable } from "./schema/schema";
 import { Representative } from "./type";
 
-export function createRepository(db: Db, getPublicVoterData: () => Promise<string[]>) {
+export function createRepository(db: Db) {
   return {
     async getAllRepresentatives() {
       return await db.select().from(representativeTable);
