@@ -1,3 +1,3 @@
-export * from "./card";
-export * from "./main";
+export * from "./representative-card";
 export * from "./representative-form";
+export * from "./vote-page";

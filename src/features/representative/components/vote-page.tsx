@@ -1,7 +1,7 @@
 import { representativeService } from "../instance";
-import { RepresentativeCard } from "./card";
+import { RepresentativeCard } from "./representative-card";
 
-export async function Main() {
+export async function RepresentativeVotePage() {
   const representatives = await representativeService.getAllRepresentatives();
 
   return (

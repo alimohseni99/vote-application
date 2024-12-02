@@ -1,9 +1,9 @@
-import { Main } from "@/features";
+import { RepresentativeVotePage } from "@/features";
 
 export default function Home() {
   return (
     <>
-      <Main />
+      <RepresentativeVotePage />
     </>
   );
 }
