@@ -20,7 +20,7 @@ import { useState } from "react";
 
 type Props = {
   title: string;
-  time: Date["toISOString"];
+  time: Date;
   options: string[];
   electionId: string;
 };
