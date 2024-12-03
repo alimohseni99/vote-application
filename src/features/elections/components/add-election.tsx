@@ -38,16 +38,10 @@ export function Election() {
   const onSubmit = (values: z.infer<typeof electionSchema>) => {
     const election = {
       title: values.title,
+      choice: [values.optionA, values.optionB, values.optionC, values.optionD],
     };
 
-    const choices = [
-      { choice: values.optionA },
-      { choice: values.optionB },
-      { choice: values.optionC },
-      { choice: values.optionD },
-    ];
-
-    addElection(election, choices);
+    addElection(election);
     form.reset();
   };
 

@@ -1,10 +1,7 @@
 "use server";
 import { electionService } from "./instance";
-import { Election, ElectionChoice } from "./type";
+import { electionTableInsert } from "./schema/schema";
 
-export async function addElection(
-  election: Election,
-  electionChoices: ElectionChoice[]
-) {
-  await electionService.addElection(election, electionChoices);
+export async function addElection(election: electionTableInsert) {
+  await electionService.addElection(election);
 }
