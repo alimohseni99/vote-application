@@ -4,7 +4,8 @@ import { electionTableInsert } from "./schema/schema";
 
 export function createService(
   db: Db,
-  getRepresentative: (representativeId: string) => Promise<string[]>
+  getRepresentative: (representativeId: string) => Promise<string[]>,
+  getPublicVoter: (voterId: string) => Promise<string[]>
 ) {
   const repository = createRepository(db);
 
@@ -28,6 +29,22 @@ export function createService(
         electionId,
         electionChoice,
         representativeId
+      );
+    },
+
+    async addPublicPreference(
+      electionId: string,
+      electionPreference: string,
+      voterId: string
+    ) {
+      const voter = await getPublicVoter(voterId);
+      if (voter.length === 0) {
+        throw new Error("Voter not found");
+      }
+      return await repository.addPublicPreference(
+        electionId,
+        electionPreference,
+        voterId
       );
     },
   };

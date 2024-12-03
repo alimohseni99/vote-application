@@ -17,7 +17,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useState } from "react";
-import { addRepresentativeVote } from "../action";
+import { addPublicPreference, addRepresentativeVote } from "../action";
 
 type Props = {
   title: string;
@@ -40,6 +40,7 @@ export function ElectionCard({ title, time, options, electionId }: Props) {
 
   const onClickPublic = () => {
     if (selectedOption) {
+      addPublicPreference(electionId, selectedOption);
       alert("Thank you for choosing a preference");
     } else {
       alert("Please select an option before choosing.");

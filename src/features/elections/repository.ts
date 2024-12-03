@@ -1,5 +1,6 @@
 import { Db } from "@/db";
 import {
+  electionPreferenceTable,
   electionTable,
   electionTableInsert,
   electionVoteTable,
@@ -24,6 +25,21 @@ export function createRepository(db: Db) {
           electionId,
           choice: electionChoice,
           voterId: representativeId,
+        })
+        .execute();
+    },
+
+    async addPublicPreference(
+      electionId: string,
+      electionPreference: string,
+      voterId: string
+    ) {
+      await db
+        .insert(electionPreferenceTable)
+        .values({
+          electionId,
+          preference: electionPreference,
+          voterId: voterId,
         })
         .execute();
     },

@@ -1,8 +1,10 @@
 import { db } from "@/db";
-import { createService } from "./service";
+import { publicService } from "../public/instance";
 import { representativeService } from "../representative/instance";
+import { createService } from "./service";
 
 export const electionService = createService(
   db,
-  representativeService.getRepresentativeById
+  representativeService.getRepresentativeById,
+  publicService.getPublicVoterDataById
 );
