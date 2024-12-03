@@ -1,5 +1,9 @@
 import { Db } from "@/db";
-import { electionTable, electionTableInsert } from "./schema/schema";
+import {
+  electionTable,
+  electionTableInsert,
+  electionVoteTable,
+} from "./schema/schema";
 
 export function createRepository(db: Db) {
   return {
@@ -8,6 +12,20 @@ export function createRepository(db: Db) {
     },
     async addElection(election: electionTableInsert) {
       await db.insert(electionTable).values(election).execute();
+    },
+    async addRepresentativeVote(
+      electionId: string,
+      electionChoice: string,
+      representativeId: string
+    ) {
+      await db
+        .insert(electionVoteTable)
+        .values({
+          electionId,
+          choice: electionChoice,
+          voterId: representativeId,
+        })
+        .execute();
     },
   };
 }

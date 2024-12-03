@@ -21,5 +21,14 @@ export function createRepository(db: Db) {
         .set({ publicVotes: sql`${representativeTable.publicVotes} +1` })
         .where(eq(representativeTable.id, representativeId));
     },
+    async getRepresentativeById(representativeId: string) {
+      const representatives = await db
+        .select({ id: representativeTable.id })
+        .from(representativeTable)
+        .where(eq(representativeTable.id, representativeId))
+        .execute();
+
+      return representatives.map((rep) => rep.id);
+    },
   };
 }

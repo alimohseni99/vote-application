@@ -15,5 +15,8 @@ export function createService(db: Db) {
     async addPublicVote(representativeId: string) {
       await repository.addPublicVote(representativeId);
     },
+    async getRepresentativeById(representativeId: string) {
+      return await repository.getRepresentativeById(representativeId);
+    },
   };
 }

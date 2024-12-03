@@ -17,6 +17,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useState } from "react";
+import { addRepresentativeVote } from "../action";
 
 type Props = {
   title: string;
@@ -25,11 +26,12 @@ type Props = {
   electionId: string;
 };
 
-export function ElectionCard({ title, time, options }: Props) {
+export function ElectionCard({ title, time, options, electionId }: Props) {
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
   const onClickRepresentative = () => {
     if (selectedOption) {
+      addRepresentativeVote(electionId, selectedOption);
       alert("Thank you for voting");
     } else {
       alert("Please select an option before voting.");

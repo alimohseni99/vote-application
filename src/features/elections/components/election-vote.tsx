@@ -3,6 +3,7 @@ import { ElectionCard } from "./election-card";
 
 export async function ElectionPage() {
   const elections = await electionService.getAllElection();
+
   return (
     <main className="flex h-screen">
       <section className="w-screen flex flex-col p-10">
