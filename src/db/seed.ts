@@ -2,6 +2,7 @@ import { electionTable } from "@/features/elections/schema/schema";
 import { faker } from "@faker-js/faker";
 import { db } from ".";
 import { representativeTable } from "../features/representative/schema/schema";
+import { publicVotersTable } from "./../features/public/schema/schema";
 const representativeSeed = async () => {
   const representative: (typeof representativeTable.$inferInsert)[] = [];
 
@@ -9,7 +10,7 @@ const representativeSeed = async () => {
     representative.push({
       name: faker.person.fullName(),
       email: faker.internet.email(),
-      publicVotes: faker.number.int({ min: 10, max: 100 }),
+      publicVotes: faker.number.int({ min: 1, max: 1000 }),
     });
   }
   representative.push({
@@ -37,3 +38,20 @@ const electionSeed = async () => {
 };
 
 electionSeed().then(() => console.log("seeded election table"));
+
+const publicVotersSeed = async () => {
+  const publicVoter: (typeof publicVotersTable.$inferInsert)[] = [];
+
+  for (let i = 0; i < 10; i++) {
+    publicVoter.push({
+      id: faker.string.uuid(),
+    });
+  }
+  publicVoter.push({
+    id: "c7a1ed89-68db-4c4f-8e5b-d3182bfa5c5d",
+  });
+
+  await db.insert(publicVotersTable).values(publicVoter).execute();
+};
+
+publicVotersSeed().then(() => console.log("seeded public-voter table"));
