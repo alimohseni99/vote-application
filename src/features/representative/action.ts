@@ -20,5 +20,5 @@ export async function addRepresentative({ name, email }: Representative) {
 export async function AddPublicVote(representativeId: string) {
   await representativeService.addPublicVote(representativeId);
 
-  revalidatePath("/");
+  revalidatePath("/representative");
 }

@@ -45,7 +45,7 @@ export function ElectionCard({ title, time, options }: Props) {
   };
 
   return (
-    <Card className="!w-[350px] p-6 shadow-md rounded-lg mx-auto border mt-20">
+    <Card className="!w-[350px] p-6 shadow-md rounded-lg mx-auto border">
       <CardHeader>
         <CardTitle>
           <strong>Title: </strong>: {title}
