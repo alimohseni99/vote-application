@@ -11,5 +11,31 @@ export const electionTable = pgTable("election", {
   choice: varchar({ length: 255 }).array().notNull(),
 });
 
+export const electionVoteTable = pgTable("election_vote", {
+  id: uuid()
+    .primaryKey()
+    .default(sql`gen_random_uuid()`),
+  electionId: uuid().notNull(),
+  choice: varchar({ length: 255 }).notNull(),
+  voterId: uuid().notNull(),
+});
+
+export const electionPreferenceTable = pgTable("election_preference", {
+  id: uuid()
+    .primaryKey()
+    .default(sql`gen_random_uuid()`),
+  electionId: uuid().notNull(),
+  preference: varchar({ length: 255 }).notNull(),
+  voterId: uuid().notNull(),
+});
+
 export type electionTableInsert = typeof electionTable.$inferInsert;
 export type electionTableSelect = typeof electionTable.$inferSelect;
+
+export type electionVoteTableInsert = typeof electionVoteTable.$inferInsert;
+export type electionVoteTableSelect = typeof electionVoteTable.$inferSelect;
+
+export type electionPreferenceTableInsert =
+  typeof electionPreferenceTable.$inferInsert;
+export type electionPreferenceTableSelect =
+  typeof electionPreferenceTable.$inferSelect;

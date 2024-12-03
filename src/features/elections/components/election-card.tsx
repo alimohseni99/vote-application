@@ -70,10 +70,14 @@ export function ElectionCard({ title, time, options }: Props) {
         </Select>
       </CardContent>
       <CardFooter className="flex justify-center">
-        <Button onClick={onClickRepresentative}>Vote</Button>
+        <Button onClick={onClickRepresentative} className="w-full">
+          Submit vote
+        </Button>
       </CardFooter>
       <CardFooter className="flex justify-center ">
-        <Button onClick={onClickPublic}>Choose a preference</Button>
+        <Button onClick={onClickPublic} className="w-full">
+          Submit preference
+        </Button>
       </CardFooter>
     </Card>
   );
