@@ -6,8 +6,8 @@ export async function ElectionPage() {
 
   return (
     <main className="flex h-screen">
-      <section className="w-screen flex flex-col p-10">
-        <div className="grid grid-cols-5 gap-5">
+      <section className="w-full flex flex-col p-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-5">
           {elections.map((election, id) => (
             <ElectionCard
               key={id}
