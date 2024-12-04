@@ -1,11 +1,5 @@
 import { sql } from "drizzle-orm";
-import {
-  integer,
-  pgTable,
-  timestamp,
-  uuid,
-  varchar,
-} from "drizzle-orm/pg-core";
+import { integer, pgTable, uuid, varchar } from "drizzle-orm/pg-core";
 
 export const representativeTable = pgTable("representative", {
   id: uuid()
@@ -24,5 +18,4 @@ export const representativeVotesTable = pgTable("representative_votes", {
   representativeId: varchar({ length: 36 }).notNull(),
   choiceId: varchar({ length: 36 }).notNull(),
   votesUsed: integer().notNull(),
-  createdAt: timestamp().notNull().defaultNow(),
 });
