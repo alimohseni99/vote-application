@@ -2,7 +2,10 @@ import { Db } from "@/db";
 import { createRepository } from "./repository";
 import { Representative } from "./type";
 
-export function createService(db: Db) {
+export function createService(
+  db: Db,
+  getPublicVoterDataById: (publicVoterId: string) => Promise<string[]>
+) {
   const repository = createRepository(db);
 
   return {
@@ -13,10 +16,13 @@ export function createService(db: Db) {
       return await repository.addRepresentative(representative);
     },
     async addPublicVote(representativeId: string) {
-      await repository.addPublicVote(representativeId);
+      //await repository.addPublicVote(representativeId);
     },
     async getRepresentativeById(representativeId: string) {
       return await repository.getRepresentativeById(representativeId);
+    },
+    async getRepresentativeVotesById(representativeId: string) {
+      return await repository.getRepresentativeVotesById(representativeId);
     },
   };
 }

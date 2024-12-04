@@ -1,6 +1,6 @@
 import { Db } from "@/db";
-import { eq, sql } from "drizzle-orm";
-import { representativeTable } from "./schema/schema";
+import { eq } from "drizzle-orm";
+import { representativeTable, representativeVotesTable } from "./schema/schema";
 import { Representative } from "./type";
 
 export function createRepository(db: Db) {
@@ -15,12 +15,12 @@ export function createRepository(db: Db) {
         .execute();
     },
 
-    async addPublicVote(representativeId: string) {
-      await db
-        .update(representativeTable)
-        .set({ publicVotes: sql`${representativeTable.publicVotes} +1` })
-        .where(eq(representativeTable.id, representativeId));
-    },
+    // async addPublicVote(representativeId: string) {
+    //   await db
+    //     .update(representativeTable)
+    //     .set({ publicVotes: sql`${representativeTable.publicVotes} +1` })
+    //     .where(eq(representativeTable.id, representativeId));
+    //},
     async getRepresentativeById(representativeId: string) {
       const representatives = await db
         .select({ id: representativeTable.id })
@@ -29,6 +29,14 @@ export function createRepository(db: Db) {
         .execute();
 
       return representatives.map((rep) => rep.id);
+    },
+
+    async getRepresentativeVotesById(representativeId: string) {
+      return await db
+        .select()
+        .from(representativeVotesTable)
+        .where(eq(representativeVotesTable.id, representativeId))
+        .execute();
     },
   };
 }

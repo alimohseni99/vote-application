@@ -7,10 +7,12 @@ export function publicRepository(db: Db) {
       return db.select().from(publicVotersTable);
     },
     async getPublicVoterDataById(id: string) {
-      return db
+      const publicVoter = await db
         .select({ id: publicVotersTable.id })
         .from(publicVotersTable)
         .where(eq(publicVotersTable.id, id));
+
+      return publicVoter.map((voter) => voter.id);
     },
   };
 }
