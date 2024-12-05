@@ -21,7 +21,7 @@ import { addPublicPreference, addRepresentativeVote } from "../action";
 
 type Props = {
   title: string;
-  time: Date;
+  time: string;
   options: string[];
   electionId: string;
 };

@@ -15,16 +15,22 @@ export const electionVoteTable = pgTable("election_vote", {
   id: uuid()
     .primaryKey()
     .default(sql`gen_random_uuid()`),
-  electionId: uuid().notNull(),
+  electionId: uuid()
+    .notNull()
+    .references(() => electionTable.id)
+    .notNull()
+    .unique(),
   choice: varchar({ length: 255 }).notNull(),
-  voterId: uuid().notNull(),
+  representativeId: uuid().notNull(),
 });
 
 export const electionPreferenceTable = pgTable("election_preference", {
   id: uuid()
     .primaryKey()
     .default(sql`gen_random_uuid()`),
-  electionId: uuid().notNull(),
+  electionId: uuid()
+    .references(() => electionTable.id)
+    .notNull(),
   preference: varchar({ length: 255 }).notNull(),
   voterId: uuid().notNull(),
 });

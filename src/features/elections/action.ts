@@ -1,4 +1,5 @@
 "use server";
+
 import { electionService } from "./instance";
 import { electionTableInsert } from "./schema/schema";
 

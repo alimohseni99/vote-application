@@ -16,15 +16,15 @@ export function createRepository(db: Db) {
     },
     async addRepresentativeVote(
       electionId: string,
-      electionChoice: string,
+      choice: string,
       representativeId: string
     ) {
       await db
         .insert(electionVoteTable)
         .values({
           electionId,
-          choice: electionChoice,
-          voterId: representativeId,
+          choice,
+          representativeId,
         })
         .execute();
     },
