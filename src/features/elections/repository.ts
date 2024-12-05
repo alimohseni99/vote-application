@@ -53,5 +53,12 @@ export function createRepository(db: Db) {
         .where(eq(electionTable.id, electionId))
         .execute();
     },
+    async getElectionStatus(electionId: string) {
+      return await db
+        .select({ status: electionTable.status })
+        .from(electionTable)
+        .where(eq(electionTable.id, electionId))
+        .execute();
+    },
   };
 }
