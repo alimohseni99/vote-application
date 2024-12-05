@@ -6,5 +6,6 @@ import { createService } from "./service";
 export const electionService = createService(
   db,
   representativeService.getRepresentativeById,
-  publicService.getPublicVoterDataById
+  publicService.getPublicVoterDataById,
+  representativeService.getTotalOfVotes
 );

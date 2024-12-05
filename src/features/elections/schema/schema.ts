@@ -22,6 +22,7 @@ export const electionVoteTable = pgTable("election_vote", {
     .unique(),
   choice: varchar({ length: 255 }).notNull(),
   representativeId: uuid().notNull(),
+  totalVotes: varchar({ length: 255 }).notNull(),
 });
 
 export const electionPreferenceTable = pgTable("election_preference", {

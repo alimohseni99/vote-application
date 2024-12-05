@@ -5,7 +5,8 @@ import { electionTableInsert } from "./schema/schema";
 export function createService(
   db: Db,
   getRepresentative: (representativeId: string) => Promise<string[]>,
-  getPublicVoter: (voterId: string) => Promise<string[]>
+  getPublicVoter: (voterId: string) => Promise<string[]>,
+  getTotalOfVotes: (representativeId: string) => Promise<number[]>
 ) {
   const repository = createRepository(db);
 
@@ -22,16 +23,17 @@ export function createService(
       representativeId: string
     ) {
       const representative = await getRepresentative(representativeId);
+      const totalOfVotes = await getTotalOfVotes(representativeId);
       if (representative.length === 0) {
         throw new Error("Representative not found");
       }
       return await repository.addRepresentativeVote(
         electionId,
         electionChoice,
-        representativeId
+        representativeId,
+        totalOfVotes.join(",")
       );
     },
-
     async addPublicPreference(
       electionId: string,
       electionPreference: string,

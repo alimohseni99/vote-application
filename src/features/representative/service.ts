@@ -28,5 +28,8 @@ export function createService(
     async getRepresentativeVotesById(representativeId: string) {
       return await repository.getRepresentativeVotesById(representativeId);
     },
+    async getTotalOfVotes(representativeId: string) {
+      return await repository.getTotalOfVotes(representativeId);
+    },
   };
 }

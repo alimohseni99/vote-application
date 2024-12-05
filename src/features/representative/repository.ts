@@ -45,5 +45,14 @@ export function createRepository(db: Db) {
         .where(eq(representativeVotesTable.id, representativeId))
         .execute();
     },
+    async getTotalOfVotes(representativeId: string) {
+      const totalVotes = await db
+        .select({ totalVotes: representativeTable.totalVotes })
+        .from(representativeTable)
+        .where(eq(representativeTable.id, representativeId))
+        .execute();
+
+      return totalVotes.map((votes) => votes.totalVotes);
+    },
   };
 }
