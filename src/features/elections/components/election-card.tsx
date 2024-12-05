@@ -34,7 +34,6 @@ type Props = {
 export function ElectionCard({ title, time, options, electionId }: Props) {
   const { toast } = useToast();
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
-  const [setButtonToDisable, setSetButtonToDisable] = useState(false);
 
   const onClickRepresentative = () => {
     if (!selectedOption) {
@@ -64,7 +63,6 @@ export function ElectionCard({ title, time, options, electionId }: Props) {
 
   const onClickToConclude = () => {
     concludeElection(electionId);
-    setSetButtonToDisable(true);
     toast({
       description: "The election has been concluded",
     });
@@ -95,29 +93,17 @@ export function ElectionCard({ title, time, options, electionId }: Props) {
         </Select>
       </CardContent>
       <CardFooter className="flex justify-center">
-        <Button
-          onClick={onClickRepresentative}
-          className="w-full"
-          disabled={setButtonToDisable}
-        >
+        <Button onClick={onClickRepresentative} className="w-full">
           Submit vote
         </Button>
       </CardFooter>
       <CardFooter className="flex justify-center ">
-        <Button
-          onClick={onClickPublic}
-          className="w-full"
-          disabled={setButtonToDisable}
-        >
+        <Button onClick={onClickPublic} className="w-full">
           Submit preference
         </Button>
       </CardFooter>
       <CardFooter className="flex justify-center ">
-        <Button
-          onClick={onClickToConclude}
-          className="w-full"
-          disabled={setButtonToDisable}
-        >
+        <Button onClick={onClickToConclude} className="w-full">
           Conclude Election
         </Button>
       </CardFooter>

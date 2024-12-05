@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { electionService } from "./instance";
 import { electionTableInsert } from "./schema/schema";
 
@@ -31,4 +32,5 @@ export async function addPublicPreference(
 }
 export async function concludeElection(electionId: string) {
   await electionService.concludeElection(electionId);
+  revalidatePath("/election-vote");
 }
