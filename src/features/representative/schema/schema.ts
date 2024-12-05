@@ -17,7 +17,7 @@ export const representativeVotesTable = pgTable("representative_votes", {
   representativeId: uuid()
     .notNull()
     .references(() => representativeTable.id),
-  publicVoterId: varchar({ length: 36 }).notNull(),
+  publicVoterId: varchar({ length: 36 }).notNull().unique(),
 });
 
 export type representativeTableInsert = typeof representativeTable.$inferInsert;
