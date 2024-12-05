@@ -9,10 +9,12 @@
     "lint": "next lint",
     "push": "npx drizzle-kit push",
     "studio": "npx drizzle-kit studio",
-    "db:seed": "tsx src/db/seed.ts"
+    "seed": "tsx src/db/seed.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
+    "@radix-ui/react-alert-dialog": "^1.1.2",
+    "@radix-ui/react-dialog": "^1.1.2",
     "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-navigation-menu": "^1.2.1",
     "@radix-ui/react-select": "^2.1.2",

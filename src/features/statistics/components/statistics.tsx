@@ -3,7 +3,6 @@ import { ElectionCardConcluded } from "./election-card";
 
 export async function Statistics() {
   const elections = await statsService.getAllElection();
-  console.log(elections);
   return (
     <main className="flex h-screen">
       <section className="w-full flex flex-col p-10">

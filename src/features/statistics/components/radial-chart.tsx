@@ -2,41 +2,33 @@
 
 import { Label, PolarRadiusAxis, RadialBar, RadialBarChart } from "recharts";
 
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import {
   ChartConfig,
   ChartContainer,
   ChartTooltip,
   ChartTooltipContent,
 } from "@/components/ui/chart";
-const chartData = [{ month: "january", desktop: 1260, mobile: 570 }];
+
+const chartData = [{ agreed: 570, disagreed: 1260 }];
 
 const chartConfig = {
-  desktop: {
-    label: "Disagreed",
-    color: "hsl(var(--chart-1))",
-  },
-  mobile: {
+  agreed: {
     label: "Agreed",
     color: "hsl(var(--chart-2))",
+  },
+  disagreed: {
+    label: "Disagreed",
+    color: "hsl(var(--chart-1))",
   },
 } satisfies ChartConfig;
 
 export function RadialChart() {
-  const TotalVotes = chartData[0].desktop + chartData[0].mobile;
+  const TotalVotes = chartData[0].agreed + chartData[0].disagreed;
 
   return (
-    <Card className="w-[350] flex flex-col justify-center">
-      <CardHeader className="items-center pb-0">
-        <CardTitle>Radial Chart - {}</CardTitle>
-        <CardDescription>Summery of agreement</CardDescription>
-      </CardHeader>
+    <Card className="w-[350px] flex flex-col justify-center">
+      <CardHeader className="items-center pb-0"></CardHeader>
       <CardContent className="flex flex-1 items-center pb-0">
         <ChartContainer
           config={chartConfig}
@@ -67,10 +59,10 @@ export function RadialChart() {
                         </tspan>
                         <tspan
                           x={viewBox.cx}
-                          y={(viewBox.cy || 0) + 4}
+                          y={(viewBox.cy || 0) + 15}
                           className="fill-muted-foreground"
                         >
-                          Total Votes
+                          Representative + Public votes
                         </tspan>
                       </text>
                     );
@@ -78,16 +70,17 @@ export function RadialChart() {
                 }}
               />
             </PolarRadiusAxis>
+
             <RadialBar
-              dataKey="desktop"
+              dataKey="disagreed"
               stackId="a"
               cornerRadius={5}
-              fill="var(--color-desktop)"
+              fill="var(--color-disagreed)"
               className="stroke-transparent stroke-2"
             />
             <RadialBar
-              dataKey="mobile"
-              fill="var(--color-mobile)"
+              dataKey="agreed"
+              fill="var(--color-agreed)"
               stackId="a"
               cornerRadius={5}
               className="stroke-transparent stroke-2"

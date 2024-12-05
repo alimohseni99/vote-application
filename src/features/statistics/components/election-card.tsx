@@ -7,6 +7,9 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { DialogTitle } from "@radix-ui/react-dialog";
+import { RadialChart } from "./radial-chart";
 
 type Props = {
   title: string;
@@ -28,7 +31,19 @@ export function ElectionCardConcluded({ title, time }: Props) {
       </CardHeader>
       <CardContent></CardContent>
       <CardFooter className="flex justify-center">
-        <Button className="w-full">Show Details</Button>
+        <Dialog>
+          <DialogTrigger asChild>
+            <Button>Show Result</Button>
+          </DialogTrigger>
+          <DialogContent className="sm:max-w-[425px]">
+            <DialogTitle className="justify-center items-center text-center">
+              Summery of the Election
+            </DialogTitle>
+            <div className="flex justify-center items-center">
+              <RadialChart />
+            </div>
+          </DialogContent>
+        </Dialog>
       </CardFooter>
     </Card>
   );
