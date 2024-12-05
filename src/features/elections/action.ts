@@ -29,3 +29,6 @@ export async function addPublicPreference(
     voterId
   );
 }
+export async function concludeElection(electionId: string) {
+  await electionService.concludeElection(electionId);
+}

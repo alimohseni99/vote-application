@@ -49,5 +49,8 @@ export function createService(
         voterId
       );
     },
+    async concludeElection(electionId: string) {
+      return await repository.concludeElection(electionId);
+    },
   };
 }

@@ -16,8 +16,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
-import { addPublicPreference, addRepresentativeVote } from "../action";
+import {
+  addPublicPreference,
+  addRepresentativeVote,
+  concludeElection,
+} from "../action";
 
 type Props = {
   title: string;
@@ -27,26 +32,41 @@ type Props = {
 };
 
 export function ElectionCard({ title, time, options, electionId }: Props) {
+  const { toast } = useToast();
   const [selectedOption, setSelectedOption] = useState<string | null>(null);
 
   const onClickRepresentative = () => {
-    if (selectedOption) {
-      addRepresentativeVote(electionId, selectedOption);
-      alert("Thank you for voting");
+    if (!selectedOption) {
+      toast({
+        description: "Please select an option before submitting.",
+      });
     } else {
-      alert("Please select an option before voting.");
+      addRepresentativeVote(electionId, selectedOption);
+      toast({
+        description: "Thank you for voting!",
+      });
     }
   };
 
   const onClickPublic = () => {
-    if (selectedOption) {
-      addPublicPreference(electionId, selectedOption);
-      alert("Thank you for choosing a preference");
+    if (!selectedOption) {
+      toast({
+        description: "Please select an option before submitting.",
+      });
     } else {
-      alert("Please select an option before choosing.");
+      addPublicPreference(electionId, selectedOption);
+      toast({
+        description: "Thank you for choosing a preference",
+      });
     }
   };
 
+  const onClickToConclude = () => {
+    concludeElection(electionId);
+    toast({
+      description: "The election has been concluded",
+    });
+  };
   return (
     <Card className="w-full max-w-sm rounded-lg shadow-lg border border-gray-200 ">
       <CardHeader>
@@ -80,6 +100,11 @@ export function ElectionCard({ title, time, options, electionId }: Props) {
       <CardFooter className="flex justify-center ">
         <Button onClick={onClickPublic} className="w-full">
           Submit preference
+        </Button>
+      </CardFooter>
+      <CardFooter className="flex justify-center ">
+        <Button onClick={onClickToConclude} className="w-full">
+          Conclude Election
         </Button>
       </CardFooter>
     </Card>

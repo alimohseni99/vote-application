@@ -1,4 +1,5 @@
 import { Db } from "@/db";
+import { eq } from "drizzle-orm";
 import {
   electionPreferenceTable,
   electionTable,
@@ -43,6 +44,13 @@ export function createRepository(db: Db) {
           preference: electionPreference,
           voterId: voterId,
         })
+        .execute();
+    },
+    async concludeElection(electionId: string) {
+      await db
+        .update(electionTable)
+        .set({ status: "conclude" })
+        .where(eq(electionTable.id, electionId))
         .execute();
     },
   };
