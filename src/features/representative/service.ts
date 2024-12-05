@@ -15,8 +15,12 @@ export function createService(
     async addRepresentative(representative: Representative) {
       return await repository.addRepresentative(representative);
     },
-    async addPublicVote(representativeId: string) {
-      //await repository.addPublicVote(representativeId);
+    async addPublicVote(representativeId: string, publicVoterId: string) {
+      const publicVoter = await getPublicVoterDataById(publicVoterId);
+      if (publicVoter.length === 0) {
+        throw new Error("Representative not found");
+      }
+      await repository.addPublicVote(representativeId, publicVoterId);
     },
     async getRepresentativeById(representativeId: string) {
       return await repository.getRepresentativeById(representativeId);

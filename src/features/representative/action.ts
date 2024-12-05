@@ -18,7 +18,8 @@ export async function addRepresentative({ name, email }: Representative) {
 }
 
 export async function AddPublicVote(representativeId: string) {
-  await representativeService.addPublicVote(representativeId);
+  const publicVoter = "c7a1ed89-68db-4c4f-8e5b-d3182bfa5c5d";
+  await representativeService.addPublicVote(representativeId, publicVoter);
 
   revalidatePath("/representative");
 }

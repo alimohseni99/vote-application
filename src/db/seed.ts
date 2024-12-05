@@ -1,6 +1,11 @@
 import { faker } from "@faker-js/faker";
 import { db } from ".";
-import { representativeVotesTable } from "../features/representative/schema/schema";
+import {
+  representativeTable,
+  representativeTableInsert,
+  representativeVotesTable,
+  representativeVotesTableInsert,
+} from "../features/representative/schema/schema";
 import { publicVotersTable } from "./../features/public/schema/schema";
 /*
 const representativeSeed = async () => {
@@ -40,37 +45,52 @@ electionSeed().then(() => console.log("seeded election table"));
 */
 
 const publicVotersSeed = async () => {
-  //seed publicVoters
-  const publicVoter: (typeof publicVotersTable.$inferInsert)[] = [];
+  const publicVoters: { id: string }[] = [];
+  const representatives: representativeTableInsert[] = [];
+  const representativeVotes: representativeVotesTableInsert[] = [];
 
-  //seed representativeVotes
-  const representativeVotes: (typeof representativeVotesTable.$inferInsert)[] =
-    [];
-
-  for (let i = 0; i < 5; i++) {
-    publicVoter.push({
+  for (let i = 0; i < 10; i++) {
+    publicVoters.push({
       id: faker.string.uuid(),
     });
   }
 
-  publicVoter.forEach((voter) => {
+  for (let i = 0; i < 2; i++) {
+    representatives.push({
+      id: faker.string.uuid(),
+      name: faker.person.firstName() + " " + faker.person.lastName(),
+      email: faker.internet.email(),
+      totalVotes: 0,
+    });
+  }
+
+  publicVoters.forEach((voter) => {
+    const randomRepresentative =
+      representatives[Math.floor(Math.random() * representatives.length)];
+
     representativeVotes.push({
       id: faker.string.uuid(),
-      representativeId: faker.string.uuid(),
-      publicVoterId: voter.id!,
+      representativeId: randomRepresentative.id,
+      publicVoterId: voter.id,
     });
+
+    randomRepresentative.totalVotes += 1;
   });
 
-  //Default public voter, Don't remove it
-  publicVoter.push({
+  publicVoters.push({
     id: "c7a1ed89-68db-4c4f-8e5b-d3182bfa5c5d",
   });
 
-  await db.insert(publicVotersTable).values(publicVoter).execute();
+  await db.insert(representativeTable).values(representatives).execute();
+  await db.insert(publicVotersTable).values(publicVoters).execute();
   await db
     .insert(representativeVotesTable)
     .values(representativeVotes)
     .execute();
 };
 
-publicVotersSeed().then(() => console.log("seeded public-voter table"));
+publicVotersSeed().then(() =>
+  console.log(
+    "Seeded public voters, representatives, and representative votes tables"
+  )
+);

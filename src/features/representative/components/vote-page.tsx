@@ -13,7 +13,7 @@ export async function RepresentativeVotePage() {
               key={id}
               name={representative.name}
               email={representative.email}
-              votes={representative.publicVotes}
+              votes={representative.totalVotes}
               representativeId={representative.id}
             />
           ))}
