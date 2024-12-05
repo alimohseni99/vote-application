@@ -14,7 +14,13 @@ export async function ElectionPage() {
               <ElectionCard
                 key={id}
                 title={election.title}
-                time={election.createdTimeStamp.toISOString()}
+                time={
+                  election.createdTimeStamp
+                    .toISOString()
+                    .replace("T", " ")
+                    .replace("Z", "")
+                    .split(".")[0]
+                }
                 options={election.choice}
                 electionId={election.id}
               />

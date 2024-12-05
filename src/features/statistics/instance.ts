@@ -1,4 +1,8 @@
 import { db } from "@/db";
+import { electionService } from "../elections/instance";
 import { createStatsService } from "./service";
 
-export const statsService = createStatsService(db);
+export const statsService = createStatsService(
+  db,
+  electionService.getAllElection
+);

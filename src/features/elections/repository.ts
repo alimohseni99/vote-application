@@ -49,7 +49,7 @@ export function createRepository(db: Db) {
     async concludeElection(electionId: string) {
       await db
         .update(electionTable)
-        .set({ status: "conclude" })
+        .set({ status: "concluded" })
         .where(eq(electionTable.id, electionId))
         .execute();
     },
