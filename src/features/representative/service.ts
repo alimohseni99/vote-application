@@ -1,13 +1,11 @@
 import { Db } from "@/db";
-import { electionService } from "../elections/instance";
+import { publicService } from "../public/instance";
 import { createRepository } from "./repository";
 import { Representative } from "./type";
-import { publicService } from "../public/instance";
 
 export function createService(
   db: Db,
-  getPublicVoterDataById: typeof publicService.getPublicVoterDataById,
-  getElectionWinner: typeof electionService.getElectionWinner
+  getPublicVoterDataById: typeof publicService.getPublicVoterDataById
 ) {
   const repository = createRepository(db);
 
@@ -30,12 +28,6 @@ export function createService(
     },
     async getRepresentativeVotesById(representativeId: string) {
       return await repository.getRepresentativeVotesById(representativeId);
-    },
-    async getTotalOfVotes(representativeId: string) {
-      return await repository.getTotalOfVotes(representativeId);
-    },
-    async getElectionWinner() {
-      return await getElectionWinner();
     },
   };
 }
