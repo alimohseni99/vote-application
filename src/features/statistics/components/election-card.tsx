@@ -9,14 +9,24 @@ import {
 } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { DialogTitle } from "@radix-ui/react-dialog";
+import { ElectionOptions } from "./electionOptions";
 import { RadialChart } from "./radial-chart";
 
 type Props = {
   title: string;
   time: string;
+  name: string;
+  email: string;
+  options: string;
 };
 
-export function ElectionCardConcluded({ title, time }: Props) {
+export function ElectionCardConcluded({
+  title,
+  time,
+  name,
+  email,
+  options,
+}: Props) {
   return (
     <Card className="w-full max-w-sm rounded-lg shadow-lg border border-gray-200 ">
       <CardHeader className="flex flex-col justify-center items-center">
@@ -29,7 +39,25 @@ export function ElectionCardConcluded({ title, time }: Props) {
           </p>
         </CardDescription>
       </CardHeader>
-      <CardContent></CardContent>
+      <CardContent>
+        <span>
+          {" "}
+          <strong>Name: </strong>
+          {name}
+        </span>
+      </CardContent>{" "}
+      <CardContent>
+        <span>
+          <strong>Email: </strong>
+          {email}
+        </span>
+      </CardContent>
+      <CardContent>
+        <span>
+          <strong>Options: </strong>
+          {options}
+        </span>
+      </CardContent>
       <CardFooter className="flex justify-center">
         <Dialog>
           <DialogTrigger asChild>
@@ -41,6 +69,13 @@ export function ElectionCardConcluded({ title, time }: Props) {
             </DialogTitle>
             <div className="flex justify-center items-center">
               <RadialChart />
+            </div>
+            <div className="flex justify-center items-center">
+              <ElectionOptions
+                appleVotes={282}
+                bananaVotes={233}
+                orangeVotes={312}
+              />
             </div>
           </DialogContent>
         </Dialog>

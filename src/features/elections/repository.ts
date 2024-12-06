@@ -60,5 +60,14 @@ export function createRepository(db: Db) {
         .where(eq(electionTable.id, electionId))
         .execute();
     },
+    async getWinnerOption(electionId: string) {
+      return await db
+        .select({ choice: electionVoteTable.choice })
+        .from(electionVoteTable)
+        .where(eq(electionVoteTable.electionId, electionId))
+        .groupBy(electionVoteTable.choice)
+        .limit(1)
+        .execute();
+    },
   };
 }

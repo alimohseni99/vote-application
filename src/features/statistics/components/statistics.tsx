@@ -20,6 +20,9 @@ export async function Statistics() {
                     .replace("Z", "")
                     .split(".")[0]
                 }
+                name={""}
+                email={""}
+                options={election.choice.join(", ")}
               />
             ))}
         </div>

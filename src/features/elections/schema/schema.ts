@@ -18,11 +18,10 @@ export const electionVoteTable = pgTable("election_vote", {
   electionId: uuid()
     .notNull()
     .references(() => electionTable.id)
-    .notNull()
-    .unique(),
+    .notNull(),
   choice: varchar({ length: 255 }).notNull(),
   representativeId: uuid().notNull(),
-  totalVotes: varchar({ length: 255 }).notNull(),
+  totalVotes: varchar({ length: 255 }).default("0"),
 });
 
 export const electionPreferenceTable = pgTable("election_preference", {

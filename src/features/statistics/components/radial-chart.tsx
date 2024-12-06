@@ -2,7 +2,7 @@
 
 import { Label, PolarRadiusAxis, RadialBar, RadialBarChart } from "recharts";
 
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import {
   ChartConfig,
   ChartContainer,
@@ -28,7 +28,9 @@ export function RadialChart() {
 
   return (
     <Card className="w-[350px] flex flex-col justify-center">
-      <CardHeader className="items-center pb-0"></CardHeader>
+      <CardHeader className="items-center pb-0">
+        <CardTitle>Agreement</CardTitle>
+      </CardHeader>
       <CardContent className="flex flex-1 items-center pb-0">
         <ChartContainer
           config={chartConfig}
