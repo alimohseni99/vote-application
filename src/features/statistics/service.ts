@@ -4,7 +4,8 @@ import { createStatsRepository } from "./repository";
 
 export function createStatsService(
   db: Db,
-  getAllElection: typeof electionService.getAllElection
+  getAllElection: typeof electionService.getAllElection,
+  getElectionWinner: typeof electionService.getElectionWinner
 ) {
   const repository = createStatsRepository(db);
   return {
@@ -13,6 +14,9 @@ export function createStatsService(
     },
     async getAllElection() {
       return getAllElection();
+    },
+    async getElectionWinner() {
+      return getElectionWinner();
     },
   };
 }

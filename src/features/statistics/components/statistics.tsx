@@ -3,6 +3,18 @@ import { ElectionCardConcluded } from "./election-card";
 
 export async function Statistics() {
   const elections = await statsService.getAllElection();
+  const electionWinners = await statsService.getElectionWinner();
+  electionWinners.forEach(
+    (winner: {
+      id: string;
+      choice: string;
+      electionId: string;
+      representativeId: string;
+      totalVotes: string | null;
+    }) => {
+      console.log(winner.choice);
+    }
+  );
   return (
     <main className="flex h-screen">
       <section className="w-full flex flex-col p-10">
@@ -20,7 +32,7 @@ export async function Statistics() {
                     .replace("Z", "")
                     .split(".")[0]
                 }
-                name={""}
+                name={"choice"}
                 email={""}
                 options={election.choice.join(", ")}
               />

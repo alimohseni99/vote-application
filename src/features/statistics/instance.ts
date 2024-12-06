@@ -4,5 +4,6 @@ import { createStatsService } from "./service";
 
 export const statsService = createStatsService(
   db,
-  electionService.getAllElection
+  electionService.getAllElection,
+  electionService.getElectionWinner
 );
