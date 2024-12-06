@@ -1,5 +1,5 @@
 import { Db } from "@/db";
-import { eq } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 import {
   electionPreferenceTable,
   electionTable,
@@ -60,12 +60,12 @@ export function createRepository(db: Db) {
         .where(eq(electionTable.id, electionId))
         .execute();
     },
-    async getWinnerOption(electionId: string) {
+
+    async getElectionWinner() {
       return await db
-        .select({ choice: electionVoteTable.choice })
+        .select()
         .from(electionVoteTable)
-        .where(eq(electionVoteTable.electionId, electionId))
-        .groupBy(electionVoteTable.choice)
+        .orderBy(desc(electionVoteTable.totalVotes))
         .limit(1)
         .execute();
     },

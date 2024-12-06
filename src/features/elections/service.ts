@@ -55,5 +55,8 @@ export function createService(
     async getElectionStatus(electionId: string) {
       return await repository.getElectionStatus(electionId);
     },
+    async getElectionWinner() {
+      return await repository.getElectionWinner();
+    },
   };
 }

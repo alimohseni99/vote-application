@@ -86,12 +86,6 @@ const electionSeed = async () => {
 
   await db.insert(electionTable).values(elections).execute();
 
-  const votesCount = {
-    Apple: 0,
-    Orange: 0,
-    Banana: 0,
-  };
-
   publicVoters.forEach((voter) => {
     const randomElection =
       elections[Math.floor(Math.random() * elections.length)];
@@ -100,7 +94,8 @@ const electionSeed = async () => {
         Math.floor(Math.random() * randomElection.choice.length)
       ];
 
-    votesCount[randomChoice] += 1;
+    const randomRepresentative =
+      representatives[Math.floor(Math.random() * representatives.length)];
 
     publicVoterPreferences.push({
       id: faker.string.uuid(),
@@ -108,25 +103,23 @@ const electionSeed = async () => {
       preference: randomChoice,
       voterId: voter.id,
     });
-  });
-
-  Object.entries(votesCount).forEach(([choice, count]) => {
     electionVoteRepresentative.push({
       id: faker.string.uuid(),
-      electionId: elections[0].id!,
-      choice: choice,
-      representativeId: representatives[0].id!,
-      totalVotes: count.toString(),
+      electionId: randomElection.id!,
+      choice: randomChoice,
+      representativeId: randomRepresentative.id,
+      totalVotes: Math.floor(Math.random() * publicVoters.length).toString(),
     });
   });
 
   await db
-    .insert(electionPreferenceTable)
-    .values(publicVoterPreferences)
-    .execute();
-  await db
     .insert(electionVoteTable)
     .values(electionVoteRepresentative)
+    .execute();
+
+  await db
+    .insert(electionPreferenceTable)
+    .values(publicVoterPreferences)
     .execute();
 };
 
