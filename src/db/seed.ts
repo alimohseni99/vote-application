@@ -21,7 +21,7 @@ const voterSeed = async () => {
   const representatives: representativeTableInsert[] = [];
   const representativeVotes: representativeVotesTableInsert[] = [];
 
-  for (let i = 0; i < 1000; i++) {
+  for (let i = 0; i < 997; i++) {
     publicVoters.push({
       id: faker.string.uuid(),
     });
@@ -32,7 +32,6 @@ const voterSeed = async () => {
       id: faker.string.uuid(),
       name: faker.person.firstName() + " " + faker.person.lastName(),
       email: faker.internet.email(),
-      totalVotes: 0,
     });
   }
 
@@ -45,8 +44,6 @@ const voterSeed = async () => {
       representativeId: randomRepresentative.id!,
       publicVoterId: voter.id,
     });
-
-    randomRepresentative.totalVotes! += 1;
   });
 
   publicVoters.push({
@@ -57,7 +54,6 @@ const voterSeed = async () => {
     id: "45902ca6-657b-4e7a-b630-74a967e4abfd",
     name: "Ali Mohseni",
     email: "ali.mohseni05@yahoo.se",
-    totalVotes: 999,
   });
   await db.insert(publicVotersTable).values(publicVoters).execute();
   await db.insert(representativeTable).values(representatives).execute();

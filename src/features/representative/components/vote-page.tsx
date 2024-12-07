@@ -1,8 +1,8 @@
-import { representativeService } from "../instance";
+import { representativesService } from "../instance";
 import { RepresentativeCard } from "./representative-card";
 
 export async function RepresentativeVotePage() {
-  const representatives = await representativeService.getAllRepresentatives();
+  const representatives = await representativesService.getAllRepresentatives();
 
   return (
     <main className="flex h-screen">

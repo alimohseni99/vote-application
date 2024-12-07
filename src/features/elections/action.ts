@@ -2,7 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { electionService } from "./instance";
-import { electionTableInsert } from "./schema/schema";
+import { electionTableInsert, electionVoteTableInsert } from "./schema/schema";
 
 export async function addElection(election: electionTableInsert) {
   await electionService.addElection(election);
@@ -10,14 +10,17 @@ export async function addElection(election: electionTableInsert) {
 
 export async function addRepresentativeVote(
   electionId: string,
-  electionChoice: string
+  choice: string
 ) {
   const representativeId = "45902ca6-657b-4e7a-b630-74a967e4abfd";
-  await electionService.addRepresentativeVote(
+
+  const vote: electionVoteTableInsert = {
     electionId,
-    electionChoice,
-    representativeId
-  );
+    choice,
+    representativeId,
+  };
+
+  await electionService.addRepresentativeVote(vote);
 }
 export async function addPublicPreference(
   electionId: string,
