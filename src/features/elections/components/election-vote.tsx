@@ -21,7 +21,7 @@ export async function ElectionPage() {
                     .replace("Z", "")
                     .split(".")[0]
                 }
-                options={election.choice}
+                options={election.choices}
                 electionId={election.id}
               />
             ))}

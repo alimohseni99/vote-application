@@ -1,7 +1,11 @@
 import { Db } from "@/db";
 import { representativesService } from "../representative/instance";
 import { createRepository } from "./repository";
-import { electionTableInsert, electionVoteTableInsert } from "./schema/schema";
+import {
+  electionTableInsert,
+  electionVoteTableInsert,
+  electionWinnerTableInsert,
+} from "./schema/schema";
 
 export function createService(
   db: Db,
@@ -54,13 +58,13 @@ export function createService(
       );
     },
     async concludeElection(electionId: string) {
-      return await repository.concludeElection(electionId);
+      return await repository.updateElectionStatus(electionId);
     },
-    async getElectionStatus(electionId: string) {
-      return await repository.getElectionStatus(electionId);
+    async getConcludedElectionData() {
+      return await repository.getConcludedElectionData();
     },
-    async getElectionWinner() {
-      return await repository.getElectionWinner();
+    async addElectionWinner(electionWinner: electionWinnerTableInsert) {
+      return await repository.addElectionWinner(electionWinner);
     },
   };
 }

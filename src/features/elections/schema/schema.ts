@@ -8,7 +8,7 @@ export const electionTable = pgTable("election", {
   title: varchar({ length: 50 }).notNull(),
   createdTimeStamp: timestamp().notNull().defaultNow(),
   status: varchar({ length: 50 }).notNull().default("ongoing"),
-  choice: varchar({ length: 255 }).array().notNull(),
+  choices: varchar({ length: 255 }).array().notNull(),
 });
 
 export const electionVoteTable = pgTable("election_vote", {
@@ -35,6 +35,20 @@ export const electionPreferenceTable = pgTable("election_preference", {
   voterId: uuid().notNull(),
 });
 
+export const electionWinnerTable = pgTable("election_winner", {
+  id: uuid()
+    .primaryKey()
+    .default(sql`gen_random_uuid()`),
+  electionId: uuid()
+    .references(() => electionTable.id)
+    .notNull(),
+  name: varchar({ length: 255 }).notNull(),
+  email: varchar({ length: 255 }).notNull(),
+  totalVotes: varchar({ length: 255 }).default("0"),
+  winnerChoice: varchar({ length: 255 }).notNull(),
+  choices: varchar({ length: 255 }).array().notNull(),
+});
+
 export type electionTableInsert = typeof electionTable.$inferInsert;
 export type electionTableSelect = typeof electionTable.$inferSelect;
 
@@ -45,3 +59,6 @@ export type electionPreferenceTableInsert =
   typeof electionPreferenceTable.$inferInsert;
 export type electionPreferenceTableSelect =
   typeof electionPreferenceTable.$inferSelect;
+
+export type electionWinnerTableInsert = typeof electionWinnerTable.$inferInsert;
+export type electionWinnerTableSelect = typeof electionWinnerTable.$inferSelect;

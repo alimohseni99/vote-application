@@ -18,6 +18,7 @@ type Props = {
   name: string;
   email: string;
   options: string;
+  electionWinners: string;
 };
 
 export function ElectionCardConcluded({
@@ -26,6 +27,7 @@ export function ElectionCardConcluded({
   name,
   email,
   options,
+  electionWinners,
 }: Props) {
   return (
     <Card className="w-full max-w-sm rounded-lg shadow-lg border border-gray-200 ">
@@ -56,6 +58,12 @@ export function ElectionCardConcluded({
         <span>
           <strong>Options: </strong>
           {options}
+        </span>
+      </CardContent>
+      <CardContent>
+        <span>
+          <strong>Winner: </strong>
+          {electionWinners}
         </span>
       </CardContent>
       <CardFooter className="flex justify-center">

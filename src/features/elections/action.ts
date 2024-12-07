@@ -33,7 +33,7 @@ export async function addPublicPreference(
     voterId
   );
 }
-export async function concludeElection(electionId: string) {
+export async function concludeElection(electionId: string, ) {
   await electionService.concludeElection(electionId);
   revalidatePath("/election-vote");
 }

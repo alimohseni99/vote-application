@@ -21,7 +21,7 @@ const voterSeed = async () => {
   const representatives: representativeTableInsert[] = [];
   const representativeVotes: representativeVotesTableInsert[] = [];
 
-  for (let i = 0; i < 997; i++) {
+  for (let i = 0; i < 30; i++) {
     publicVoters.push({
       id: faker.string.uuid(),
     });
@@ -76,7 +76,7 @@ const electionSeed = async () => {
       title: faker.lorem.word(3),
       createdTimeStamp: faker.date.recent(),
       status: "ongoing",
-      choice: ["Apple", "Orange", "Banana"],
+      choices: ["Apple", "Orange", "Banana"],
     });
   }
 
@@ -86,8 +86,8 @@ const electionSeed = async () => {
     const randomElection =
       elections[Math.floor(Math.random() * elections.length)];
     const randomChoice =
-      randomElection.choice[
-        Math.floor(Math.random() * randomElection.choice.length)
+      randomElection.choices[
+        Math.floor(Math.random() * randomElection.choices.length)
       ];
 
     const randomRepresentative =

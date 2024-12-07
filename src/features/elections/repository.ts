@@ -1,11 +1,13 @@
 import { Db } from "@/db";
-import { desc, eq } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 import {
   electionPreferenceTable,
   electionTable,
   electionTableInsert,
   electionVoteTable,
   electionVoteTableInsert,
+  electionWinnerTable,
+  electionWinnerTableInsert,
 } from "./schema/schema";
 
 export function createRepository(db: Db) {
@@ -35,28 +37,20 @@ export function createRepository(db: Db) {
         })
         .execute();
     },
-    async concludeElection(electionId: string) {
+    async updateElectionStatus(electionId: string) {
       await db
         .update(electionTable)
         .set({ status: "concluded" })
         .where(eq(electionTable.id, electionId))
         .execute();
     },
-    async getElectionStatus(electionId: string) {
-      return await db
-        .select({ status: electionTable.status })
-        .from(electionTable)
-        .where(eq(electionTable.id, electionId))
-        .execute();
+
+    async addElectionWinner(electionWinner: electionWinnerTableInsert) {
+      await db.insert(electionWinnerTable).values(electionWinner).execute();
     },
 
-    async getElectionWinner() {
-      return await db
-        .select()
-        .from(electionVoteTable)
-        .orderBy(desc(electionVoteTable.totalVotes))
-        .limit(1)
-        .execute();
+    async getConcludedElectionData() {
+      return await db.select().from(electionWinnerTable).execute();
     },
   };
 }
