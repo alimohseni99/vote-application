@@ -68,7 +68,6 @@ export function createService(
       );
 
       const preferences = await repository.getElectionPreference(electionId);
-      console.log({ pre: preferences });
 
       const agreed = preferences.filter(
         (preferences) => preferences.preference === winnerChoice

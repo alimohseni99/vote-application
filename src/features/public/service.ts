@@ -10,5 +10,8 @@ export function createPublicService(db: Db) {
     async getPublicVoterDataById(id: string) {
       return await repository.getPublicVoterDataById(id);
     },
+    async createPublicVoter() {
+      return await repository.createPublicVoterData();
+    },
   };
 }

@@ -14,5 +14,8 @@ export function publicRepository(db: Db) {
 
       return publicVoter.map((voter) => voter.id);
     },
+    async createPublicVoterData() {
+      return db.insert(publicVotersTable).values({}).execute();
+    },
   };
 }

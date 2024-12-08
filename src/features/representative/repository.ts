@@ -1,7 +1,10 @@
 import { Db } from "@/db";
 import { count, eq, sql } from "drizzle-orm";
-import { representativeTable, representativeVotesTable } from "./schema/schema";
-import { Representative } from "./type";
+import {
+  representativeTable,
+  representativeTableInsert,
+  representativeVotesTable,
+} from "./schema/schema";
 
 export function createRepository(db: Db) {
   return {
@@ -21,7 +24,7 @@ export function createRepository(db: Db) {
         .groupBy(representativeTable.id);
       return representativesWithVotes;
     },
-    async addRepresentative(representative: Representative) {
+    async addRepresentative(representative: representativeTableInsert) {
       return await db
         .insert(representativeTable)
         .values(representative)

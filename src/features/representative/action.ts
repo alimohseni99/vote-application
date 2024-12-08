@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache";
 import { representativesService } from "./instance";
+import { representativeTableInsert } from "./schema/schema";
 import { Representative } from "./type";
 
 export async function addRepresentative({ name, email }: Representative) {
@@ -9,10 +10,9 @@ export async function addRepresentative({ name, email }: Representative) {
     throw new Error("Name and email are required");
   }
 
-  const representative: Representative = {
+  const representative: representativeTableInsert = {
     name,
     email,
-    votes: 0,
   };
   await representativesService.addRepresentative(representative);
 }

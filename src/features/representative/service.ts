@@ -1,7 +1,7 @@
 import { Db } from "@/db";
 import { publicService } from "../public/instance";
 import { createRepository } from "./repository";
-import { Representative } from "./type";
+import { representativeTableInsert } from "./schema/schema";
 
 export function createService(
   db: Db,
@@ -13,7 +13,7 @@ export function createService(
     async getAllRepresentatives() {
       return await repository.getAllRepresentatives();
     },
-    async addRepresentative(representative: Representative) {
+    async addRepresentative(representative: representativeTableInsert) {
       return await repository.addRepresentative(representative);
     },
     async addPublicVote(representativeId: string, publicVoterId: string) {
