@@ -5,7 +5,7 @@ import { representativesService } from "./instance";
 import { representativeTableInsert } from "./schema/schema";
 import { Representative } from "./type";
 
-export async function addRepresentative({ name, email }: Representative) {
+export async function addRepresentativeAction({ name, email }: Representative) {
   if (!name || !email) {
     throw new Error("Name and email are required");
   }
@@ -14,10 +14,10 @@ export async function addRepresentative({ name, email }: Representative) {
     name,
     email,
   };
-  await representativesService.addRepresentative(representative);
+  await representativesService.addRepresentativeAction(representative);
 }
 
-export async function AddPublicVote(representativeId: string) {
+export async function AddPublicVoteAction(representativeId: string) {
   const publicVoter = "c7a1ed89-68db-4c4f-8e5b-d3182bfa5c5d";
   await representativesService.addPublicVote(representativeId, publicVoter);
 

@@ -5,7 +5,8 @@ import { representativeTableInsert } from "./schema/schema";
 
 export function createService(
   db: Db,
-  getPublicVoterDataById: typeof publicService.getPublicVoterDataById
+  getPublicVoterDataById: typeof publicService.getPublicVoterDataById,
+  getPublicVoterData: typeof publicService.getPublicVoterData
 ) {
   const repository = createRepository(db);
 
@@ -13,7 +14,7 @@ export function createService(
     async getAllRepresentatives() {
       return await repository.getAllRepresentatives();
     },
-    async addRepresentative(representative: representativeTableInsert) {
+    async addRepresentativeAction(representative: representativeTableInsert) {
       return await repository.addRepresentative(representative);
     },
     async addPublicVote(representativeId: string, publicVoterId: string) {
@@ -28,6 +29,9 @@ export function createService(
     },
     async getRepresentativeVotesById(representativeId: string) {
       return await repository.getRepresentativeVotesById(representativeId);
+    },
+    async getPublicVoterData() {
+      return await getPublicVoterData();
     },
   };
 }

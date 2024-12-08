@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/card";
 
 import Image from "next/image";
-import { AddPublicVote } from "../action";
+import { AddPublicVoteAction } from "../action";
 
 type Props = {
   name: string;
@@ -26,7 +26,7 @@ export function RepresentativeCard({
 }: Props) {
   const onClick = async () => {
     try {
-      await AddPublicVote(representativeId);
+      await AddPublicVoteAction(representativeId);
       alert("Thank you for your vote");
     } catch (error) {
       if (error instanceof Error) {

@@ -12,7 +12,7 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { addRepresentative } from "../action";
+import { addRepresentativeAction } from "../action";
 
 const representativeSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -29,7 +29,7 @@ export function RepresentativeForm() {
   });
 
   const onSubmit = (values: z.infer<typeof representativeSchema>) => {
-    addRepresentative({ ...values, votes: 0 });
+    addRepresentativeAction({ ...values, votes: 0 });
     form.reset();
   };
 

@@ -10,6 +10,22 @@ export async function representativeTableSeed() {
       email: faker.internet.email(),
     };
 
-    await representativesService.addRepresentative(representative);
+    await representativesService.addRepresentativeAction(representative);
+  }
+}
+
+export async function representativeVotesTableSeed() {
+  const publicVoters = await representativesService.getPublicVoterData();
+
+  for (const voter of publicVoters) {
+    const representatives =
+      await representativesService.getAllRepresentatives();
+    const randomRepresentative =
+      representatives[Math.floor(Math.random() * representatives.length)];
+
+    await representativesService.addPublicVote(
+      randomRepresentative.id,
+      voter.id
+    );
   }
 }

@@ -4,4 +4,3 @@ export async function seedPublicTable() {
     await publicService.createPublicVoter();
   }
 }
-
