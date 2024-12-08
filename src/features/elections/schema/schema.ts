@@ -55,6 +55,9 @@ export const electionWinnerTable = pgTable("election_winner", {
   totalVotes: varchar({ length: 255 }).default("0"),
   winnerChoice: varchar({ length: 255 }).notNull(),
   choices: varchar({ length: 255 }).array().notNull(),
+  agreed: integer().notNull(),
+  disagreed: integer().notNull(),
+  total: integer().notNull(),
 });
 
 export type electionTableInsert = typeof electionTable.$inferInsert;

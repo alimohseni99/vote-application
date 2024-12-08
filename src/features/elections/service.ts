@@ -24,18 +24,8 @@ export function createService(
       return await repository.addElection(election);
     },
     async addRepresentativeVote(vote: electionVoteTableInsert) {
-      const representative = await getRepresentative(vote.representativeId);
-
       const TotalVotes = await getRepresentativeVotes(vote.representativeId);
       const totalVotes = TotalVotes[0]?.totalVotes?.totalVotes || 0;
-
-      console.log("TotalVotes:", { totalVotes });
-      console.log("representative:", { representative });
-      console.log("votes:", { ...vote });
-
-      if (!vote.electionId || !vote.representativeId || !vote.choice) {
-        throw new Error("Missing required vote properties");
-      }
 
       return await repository.addRepresentativeVote({
         ...vote,
@@ -77,6 +67,14 @@ export function createService(
         electionWinner[0]?.representativeId
       );
 
+      const preferences = await repository.getElectionPreference(electionId);
+      console.log({ pre: preferences });
+
+      const agreed = preferences.filter(
+        (preferences) => preferences.preference === winnerChoice
+      ).length;
+      const disagreed = preferences.length - agreed;
+
       const winner: electionWinnerTableInsert = {
         electionId,
         name: representative.map((rep) => rep.name)[0],
@@ -86,9 +84,30 @@ export function createService(
         totalVotes: electionWinner[0]?.totalVotes?.toString(),
         winnerChoice,
         choices: election[0]?.choices,
+        agreed,
+        disagreed,
+        total: preferences.length,
       };
 
       return repository.addElectionWinner(winner);
+    },
+
+    async getElectionWinnerChoice(electionId: string) {
+      const winner = await repository.getElectionWinnerChoice(electionId);
+      const preferences = await repository.getElectionPreference(electionId);
+
+      const winnerChoice = winner[0]?.winnerChoice;
+
+      const agreed = preferences.filter(
+        (preferences) => preferences.preference === winnerChoice
+      ).length;
+      const disagreed = preferences.length - agreed;
+
+      return {
+        agreed,
+        disagreed,
+        total: preferences.length,
+      };
     },
   };
 }
