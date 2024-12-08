@@ -4,11 +4,11 @@ import { revalidatePath } from "next/cache";
 import { electionService } from "./instance";
 import { electionTableInsert, electionVoteTableInsert } from "./schema/schema";
 
-export async function addElection(election: electionTableInsert) {
+export async function addElectionAction(election: electionTableInsert) {
   await electionService.addElection(election);
 }
 
-export async function addRepresentativeVote(
+export async function addRepresentativeVoteAction(
   electionId: string,
   choice: string
 ) {
@@ -22,7 +22,7 @@ export async function addRepresentativeVote(
 
   await electionService.addRepresentativeVote(vote);
 }
-export async function addPublicPreference(
+export async function addPublicPreferenceAction(
   electionId: string,
   electionPreference: string
 ) {
@@ -33,12 +33,20 @@ export async function addPublicPreference(
     voterId
   );
 }
-export async function concludeElection(
+export async function concludeElectionAction(
   electionId: string,
-  winnerChoice: string
+  winnerChoice: string,
+  title: string,
+  createdTime: Date
 ) {
+  const time = new Date(createdTime);
   try {
-    await electionService.addElectionWinner(electionId, winnerChoice);
+    await electionService.addElectionWinner(
+      electionId,
+      winnerChoice,
+      title,
+      time
+    );
     await electionService.concludeElection(electionId);
   } catch (error) {
     console.error("Error concluding election", error);

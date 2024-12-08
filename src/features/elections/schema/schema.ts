@@ -49,7 +49,9 @@ export const electionWinnerTable = pgTable("election_winner", {
     .references(() => electionTable.id)
     .notNull(),
   name: varchar({ length: 255 }).notNull(),
-  email: varchar({ length: 255 }),
+  email: varchar({ length: 255 }).notNull(),
+  title: varchar({ length: 255 }).notNull(),
+  time: timestamp().notNull(),
   totalVotes: varchar({ length: 255 }).default("0"),
   winnerChoice: varchar({ length: 255 }).notNull(),
   choices: varchar({ length: 255 }).array().notNull(),

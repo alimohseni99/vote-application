@@ -41,7 +41,7 @@ export function RepresentativeCard({
     <Card className="w-full max-w-sm rounded-lg shadow-lg border border-gray-200 hover:shadow-xl transition-shadow duration-300 mt-2 ml-2">
       <CardHeader className="bg-gray-50 p-4 text-gray-800 rounded-t-lg text-center">
         <Image
-          src="/user.png"
+          src="/public/user.png"
           alt="Representative"
           width={200}
           height={200}

@@ -13,7 +13,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { addElection } from "../action";
+import { addElectionAction } from "../action";
 
 const electionSchema = z.object({
   title: z.string().min(1, "This field is required"),
@@ -38,10 +38,10 @@ export function Election() {
   const onSubmit = (values: z.infer<typeof electionSchema>) => {
     const election = {
       title: values.title,
-      choice: [values.optionA, values.optionB, values.optionC, values.optionD],
+      choices: [values.optionA, values.optionB, values.optionC, values.optionD],
     };
 
-    addElection(election);
+    addElectionAction(election);
     form.reset();
   };
 

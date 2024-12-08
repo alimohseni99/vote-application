@@ -65,18 +65,23 @@ export function createService(
       return await repository.getConcludedElectionData();
     },
 
-    async addElectionWinner(electionId: string, winnerChoice: string) {
+    async addElectionWinner(
+      electionId: string,
+      winnerChoice: string,
+      title: string,
+      time: Date
+    ) {
       const election = await repository.getElectionById(electionId);
       const electionWinner = await repository.getElectionWinner(electionId);
       const representative = await getRepresentative(
         electionWinner[0]?.representativeId
       );
 
-      console.log({ representative: representative });
-
       const winner: electionWinnerTableInsert = {
         electionId,
         name: representative.map((rep) => rep.name)[0],
+        title,
+        time,
         email: representative.map((rep) => rep.email)[0],
         totalVotes: electionWinner[0]?.totalVotes?.toString(),
         winnerChoice,

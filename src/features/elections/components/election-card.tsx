@@ -19,9 +19,9 @@ import {
 import { useToast } from "@/hooks/use-toast";
 import { useState } from "react";
 import {
-  addPublicPreference,
-  addRepresentativeVote,
-  concludeElection,
+  addPublicPreferenceAction,
+  addRepresentativeVoteAction,
+  concludeElectionAction,
 } from "../action";
 
 type Props = {
@@ -41,7 +41,7 @@ export function ElectionCard({ title, time, options, electionId }: Props) {
         description: "Please select an option before submitting.",
       });
     } else {
-      addRepresentativeVote(electionId, selectedOption);
+      addRepresentativeVoteAction(electionId, selectedOption);
       toast({
         description: "Thank you for voting!",
       });
@@ -54,7 +54,7 @@ export function ElectionCard({ title, time, options, electionId }: Props) {
         description: "Please select an option before submitting.",
       });
     } else {
-      addPublicPreference(electionId, selectedOption);
+      addPublicPreferenceAction(electionId, selectedOption);
       toast({
         description: "Thank you for choosing a preference",
       });
@@ -62,10 +62,16 @@ export function ElectionCard({ title, time, options, electionId }: Props) {
   };
 
   const onClickToConclude = () => {
-    concludeElection(electionId, selectedOption, title, time);
-    toast({
-      description: "The election has been concluded",
-    });
+    if (selectedOption) {
+      concludeElectionAction(electionId, selectedOption, title, new Date(time));
+      toast({
+        description: "The election has been concluded",
+      });
+    } else {
+      toast({
+        description: "Please select an option before concluding.",
+      });
+    }
   };
   return (
     <Card className="w-full max-w-sm rounded-lg shadow-lg border border-gray-200 ">
@@ -74,7 +80,7 @@ export function ElectionCard({ title, time, options, electionId }: Props) {
           <strong>Title: </strong>: {title}
         </CardTitle>
         <CardDescription>
-          <p>Time: {time.toLocaleString()}</p>
+          <p>Time: {time}</p>
         </CardDescription>
       </CardHeader>
       <CardContent>
