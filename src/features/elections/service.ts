@@ -2,6 +2,7 @@ import { Db } from "@/db";
 import { representativesService } from "../representative/instance";
 import { createRepository } from "./repository";
 import {
+  electionPreferenceTableInsert,
   electionTableInsert,
   electionVoteTableInsert,
   electionWinnerTableInsert,
@@ -11,6 +12,7 @@ export function createService(
   db: Db,
   getRepresentative: typeof representativesService.getRepresentativeById,
   getPublicVoter: (voterId: string) => Promise<string[]>,
+  getPublicVoterData: typeof representativesService.getPublicVoterData,
   getRepresentativeVotes: typeof representativesService.getRepresentativeVotesById
 ) {
   const repository = createRepository(db);
@@ -33,19 +35,15 @@ export function createService(
       });
     },
 
-    async addPublicPreference(
-      electionId: string,
-      electionPreference: string,
-      voterId: string
-    ) {
-      const voter = await getPublicVoter(voterId);
+    async addPublicPreference(vote: electionPreferenceTableInsert) {
+      const voter = await getPublicVoter(vote.voterId);
       if (voter.length === 0) {
         throw new Error("Voter not found");
       }
       return await repository.addPublicPreference(
-        electionId,
-        electionPreference,
-        voterId
+        vote.electionId,
+        vote.preference,
+        vote.voterId
       );
     },
     async concludeElection(electionId: string) {
@@ -107,6 +105,9 @@ export function createService(
         disagreed,
         total: preferences.length,
       };
+    },
+    async getPublicVoterData() {
+      return await getPublicVoterData();
     },
   };
 }

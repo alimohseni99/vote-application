@@ -1,7 +1,7 @@
-import { electionService } from "./../elections/instance";
+import { electionsService } from "./../elections/instance";
 
 export function createStatsService(
-  getConcludedElectionData: typeof electionService.getConcludedElectionData
+  getConcludedElectionData: typeof electionsService.getConcludedElectionData
 ) {
   return {
     async getAllElection() {

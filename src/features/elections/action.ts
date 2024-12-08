@@ -1,11 +1,15 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { electionService } from "./instance";
-import { electionTableInsert, electionVoteTableInsert } from "./schema/schema";
+import { electionsService } from "./instance";
+import {
+  electionPreferenceTableInsert,
+  electionTableInsert,
+  electionVoteTableInsert,
+} from "./schema/schema";
 
 export async function addElectionAction(election: electionTableInsert) {
-  await electionService.addElection(election);
+  await electionsService.addElection(election);
 }
 
 export async function addRepresentativeVoteAction(
@@ -20,18 +24,20 @@ export async function addRepresentativeVoteAction(
     representativeId,
   };
 
-  await electionService.addRepresentativeVote(vote);
+  await electionsService.addRepresentativeVote(vote);
 }
 export async function addPublicPreferenceAction(
   electionId: string,
   electionPreference: string
 ) {
   const voterId = "c7a1ed89-68db-4c4f-8e5b-d3182bfa5c5d";
-  await electionService.addPublicPreference(
+  const vote: electionPreferenceTableInsert = {
     electionId,
-    electionPreference,
-    voterId
-  );
+    preference: electionPreference,
+    voterId,
+  };
+
+  await electionsService.addPublicPreference(vote);
 }
 export async function concludeElectionAction(
   electionId: string,
@@ -41,13 +47,13 @@ export async function concludeElectionAction(
 ) {
   const time = new Date(createdTime);
   try {
-    await electionService.addElectionWinner(
+    await electionsService.addElectionWinner(
       electionId,
       winnerChoice,
       title,
       time
     );
-    await electionService.concludeElection(electionId);
+    await electionsService.concludeElection(electionId);
   } catch (error) {
     console.error("Error concluding election", error);
   }

@@ -1,8 +1,8 @@
-import { electionService } from "../instance";
+import { electionsService } from "../instance";
 import { ElectionCard } from "./election-card";
 
 export async function ElectionPage() {
-  const elections = await electionService.getAllElection();
+  const elections = await electionsService.getAllElection();
 
   return (
     <main className="flex h-screen">

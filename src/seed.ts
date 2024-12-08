@@ -1,4 +1,6 @@
 import {
+  electionPreferenceTableSeed,
+  electionTableSeed,
   representativeTableSeed,
   representativeVotesTableSeed,
   seedPublicTable,
@@ -15,6 +17,14 @@ seedPublicTable()
   })
   .then(() => {
     console.log("representative votes table seeded");
+  })
+  .then(() => {
+    electionTableSeed();
+    console.log("election table seeded");
+  })
+  .then(() => {
+    electionPreferenceTableSeed();
+    console.log("election preference table seeded");
   })
   .catch((error) => {
     console.error("Error seeding tables:", error);
