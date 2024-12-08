@@ -33,7 +33,16 @@ export async function addPublicPreference(
     voterId
   );
 }
-export async function concludeElection(electionId: string, ) {
-  await electionService.concludeElection(electionId);
+export async function concludeElection(
+  electionId: string,
+  winnerChoice: string
+) {
+  try {
+    await electionService.addElectionWinner(electionId, winnerChoice);
+    await electionService.concludeElection(electionId);
+  } catch (error) {
+    console.error("Error concluding election", error);
+  }
+
   revalidatePath("/election-vote");
 }

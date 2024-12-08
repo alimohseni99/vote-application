@@ -1,5 +1,11 @@
 import { sql } from "drizzle-orm";
-import { pgTable, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
+import {
+  integer,
+  pgTable,
+  timestamp,
+  uuid,
+  varchar,
+} from "drizzle-orm/pg-core";
 
 export const electionTable = pgTable("election", {
   id: uuid()
@@ -21,7 +27,7 @@ export const electionVoteTable = pgTable("election_vote", {
     .notNull(),
   choice: varchar({ length: 255 }).notNull(),
   representativeId: uuid().notNull(),
-  totalVotes: varchar({ length: 255 }).default("0"),
+  totalVotes: integer().default(0),
 });
 
 export const electionPreferenceTable = pgTable("election_preference", {
@@ -43,7 +49,7 @@ export const electionWinnerTable = pgTable("election_winner", {
     .references(() => electionTable.id)
     .notNull(),
   name: varchar({ length: 255 }).notNull(),
-  email: varchar({ length: 255 }).notNull(),
+  email: varchar({ length: 255 }),
   totalVotes: varchar({ length: 255 }).default("0"),
   winnerChoice: varchar({ length: 255 }).notNull(),
   choices: varchar({ length: 255 }).array().notNull(),

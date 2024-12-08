@@ -9,7 +9,7 @@ import {
 
 export function createService(
   db: Db,
-  getRepresentative: (representativeId: string) => Promise<string[]>,
+  getRepresentative: typeof representativesService.getRepresentativeById,
   getPublicVoter: (voterId: string) => Promise<string[]>,
   getRepresentativeVotes: typeof representativesService.getRepresentativeVotesById
 ) {
@@ -19,6 +19,7 @@ export function createService(
     async getAllElection() {
       return await repository.getAllElection();
     },
+
     async addElection(election: electionTableInsert) {
       return await repository.addElection(election);
     },
@@ -38,7 +39,7 @@ export function createService(
 
       return await repository.addRepresentativeVote({
         ...vote,
-        totalVotes: totalVotes.toString(),
+        totalVotes: totalVotes,
       });
     },
 
@@ -63,8 +64,26 @@ export function createService(
     async getConcludedElectionData() {
       return await repository.getConcludedElectionData();
     },
-    async addElectionWinner(electionWinner: electionWinnerTableInsert) {
-      return await repository.addElectionWinner(electionWinner);
+
+    async addElectionWinner(electionId: string, winnerChoice: string) {
+      const election = await repository.getElectionById(electionId);
+      const electionWinner = await repository.getElectionWinner(electionId);
+      const representative = await getRepresentative(
+        electionWinner[0]?.representativeId
+      );
+
+      console.log({ representative: representative });
+
+      const winner: electionWinnerTableInsert = {
+        electionId,
+        name: representative.map((rep) => rep.name)[0],
+        email: representative.map((rep) => rep.email)[0],
+        totalVotes: electionWinner[0]?.totalVotes?.toString(),
+        winnerChoice,
+        choices: election[0]?.choices,
+      };
+
+      return repository.addElectionWinner(winner);
     },
   };
 }

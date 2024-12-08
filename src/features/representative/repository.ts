@@ -36,13 +36,11 @@ export function createRepository(db: Db) {
     },
 
     async getRepresentativeById(representativeId: string) {
-      const representatives = await db
-        .select({ id: representativeTable.id })
+      return await db
+        .select()
         .from(representativeTable)
         .where(eq(representativeTable.id, representativeId))
         .execute();
-
-      return representatives.map((rep) => rep.id);
     },
 
     async getRepresentativeVotesById(representativeId: string) {
