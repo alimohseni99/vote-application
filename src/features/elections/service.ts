@@ -13,7 +13,8 @@ export function createService(
   getRepresentative: typeof representativesService.getRepresentativeById,
   getPublicVoter: (voterId: string) => Promise<string[]>,
   getPublicVoterData: typeof representativesService.getPublicVoterData,
-  getRepresentativeVotes: typeof representativesService.getRepresentativeVotesById
+  getRepresentativeVotes: typeof representativesService.getRepresentativeVotesById,
+  getAllRepresentatives: typeof representativesService.getAllRepresentatives
 ) {
   const repository = createRepository(db);
 
@@ -108,6 +109,9 @@ export function createService(
     },
     async getPublicVoterData() {
       return await getPublicVoterData();
+    },
+    async getAllRepresentatives() {
+      return await getAllRepresentatives();
     },
   };
 }

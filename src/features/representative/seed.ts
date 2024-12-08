@@ -2,7 +2,7 @@ import { faker } from "@faker-js/faker";
 import { representativesService } from "./instance";
 import { representativeTableInsert } from "./schema/schema";
 
-export async function representativeTableSeed() {
+export async function seedRepresentativeTable() {
   for (let i = 0; i < 10; i++) {
     const representative: representativeTableInsert = {
       id: faker.string.uuid(),
@@ -14,7 +14,7 @@ export async function representativeTableSeed() {
   }
 }
 
-export async function representativeVotesTableSeed() {
+export async function seedRepresentativeVotesTable() {
   const publicVoters = await representativesService.getPublicVoterData();
 
   for (const voter of publicVoters) {
@@ -28,4 +28,12 @@ export async function representativeVotesTableSeed() {
       voter.id
     );
   }
+}
+
+export async function seedDefaultRepresentative() {
+  await representativesService.addRepresentativeAction({
+    id: "45902ca6-657b-4e7a-b630-74a967e4abfd",
+    name: "Ali Mohseni",
+    email: "ali.mohseni05@yahoo.se",
+  });
 }

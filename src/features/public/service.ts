@@ -4,14 +4,15 @@ import { publicRepository } from "./repository";
 export function createPublicService(db: Db) {
   const repository = publicRepository(db);
   return {
-    async getPublicVoterData() {
+    async getPublicVoter() {
       return await repository.getPublicVoterData();
     },
     async getPublicVoterDataById(id: string) {
       return await repository.getPublicVoterDataById(id);
     },
-    async createPublicVoter() {
-      return await repository.createPublicVoterData();
+
+    async addPublicVoterById(id: string) {
+      return await repository.addPublicVoterById(id);
     },
   };
 }

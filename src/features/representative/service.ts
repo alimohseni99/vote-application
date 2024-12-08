@@ -6,7 +6,7 @@ import { representativeTableInsert } from "./schema/schema";
 export function createService(
   db: Db,
   getPublicVoterDataById: typeof publicService.getPublicVoterDataById,
-  getPublicVoterData: typeof publicService.getPublicVoterData
+  getPublicVoterData: typeof publicService.getPublicVoter
 ) {
   const repository = createRepository(db);
 
