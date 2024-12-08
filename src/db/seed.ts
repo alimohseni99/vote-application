@@ -104,7 +104,7 @@ const electionSeed = async () => {
       electionId: randomElection.id!,
       choice: randomChoice,
       representativeId: randomRepresentative.id,
-      totalVotes: Math.floor(Math.random() * publicVoters.length),
+      totalVotes: Math.floor(Math.random() * publicVoters.length),  
     });
   });
 
