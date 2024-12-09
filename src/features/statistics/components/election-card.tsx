@@ -9,18 +9,8 @@ import {
 } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { DialogTitle } from "@radix-ui/react-dialog";
+import { Props } from "../type";
 import { RadialChart } from "./radial-chart";
-
-type Props = {
-  title: string;
-  time: string;
-  name: string;
-  email: string;
-  options: string;
-  electionWinners: string;
-  agreed: number;
-  disagreed: number;
-};
 
 export function ElectionCardConcluded({
   title,
