@@ -1,5 +1,5 @@
 import { db } from "@/db";
-import { publicService } from "../public/instance";
+import { publicService } from "../publicVoter/instance";
 import { representativesService } from "../representative/instance";
 import { createService } from "./service";
 

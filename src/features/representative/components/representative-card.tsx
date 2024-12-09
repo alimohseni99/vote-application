@@ -8,6 +8,7 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 
+import { useToast } from "@/hooks/use-toast";
 import Image from "next/image";
 import { AddPublicVoteAction } from "../action";
 import { AlertDialogDemo } from "./alert-dialog";
@@ -25,15 +26,19 @@ export function RepresentativeCard({
   votes,
   representativeId,
 }: Props) {
+  const { toast } = useToast();
+
   const onClick = async () => {
     try {
       await AddPublicVoteAction(representativeId);
-      alert("Thank you for your vote");
+      toast({
+        description: "Thank you!",
+      });
     } catch (error) {
       if (error instanceof Error) {
-        alert(error.message);
-      } else {
-        alert("An unexpected error happened");
+        toast({
+          description: `${error.message}`,
+        });
       }
     }
   };

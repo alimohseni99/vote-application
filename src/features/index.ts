@@ -1,4 +1,4 @@
 export * from "./elections";
-export * from "./public";
+export * from "./publicVoter";
 export * from "./representative";
 export * from "./statistics";
