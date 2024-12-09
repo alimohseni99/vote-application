@@ -47,7 +47,7 @@ export function RepresentativeCard({
     <Card className="w-full max-w-sm rounded-lg shadow-lg border border-gray-200 hover:shadow-xl transition-shadow duration-300 mt-2 ml-2">
       <CardHeader className="bg-gray-50 p-4 text-gray-800 rounded-t-lg text-center">
         <Image
-          src="/public/user.png"
+          src="/profile.png"
           alt="Representative"
           width={200}
           height={200}
@@ -67,14 +67,14 @@ export function RepresentativeCard({
         </p>
       </CardContent>
 
-      <CardFooter className="bg-gray-10 p-4 rounded-b-lg flex justify-center">
+      <CardFooter className="bg-gray-10 p-4 rounded-b-lg flex items-baseline">
         <AlertDialogDemo
           description={
             "You will be assigning this representative to vote on your behalf on elections."
           }
           onConfirm={onClick}
         >
-          <Button className="w-full">Assign Representative</Button>
+          <Button className="w-full ">Assign Representative</Button>
         </AlertDialogDemo>
       </CardFooter>
     </Card>
