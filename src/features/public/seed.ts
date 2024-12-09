@@ -1,7 +1,7 @@
 import { faker } from "@faker-js/faker";
 import { publicService } from "./instance";
 export async function seedPublicTable() {
-  for (let i = 0; i < 20; i++) {
+  for (let i = 0; i < 50; i++) {
     const publicVoter = {
       id: faker.string.uuid(),
     };

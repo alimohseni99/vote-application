@@ -1,6 +1,9 @@
 import { faker } from "@faker-js/faker";
 import { electionsService } from "./instance";
-import { electionTableInsert } from "./schema/schema";
+import {
+  electionPreferenceTableInsert,
+  electionTableInsert,
+} from "./schema/schema";
 
 export async function seedElectionTable() {
   for (let i = 0; i < 5; i++) {
@@ -19,10 +22,19 @@ export async function seedElectionPreferenceTable() {
   const publicVoters = await electionsService.getPublicVoterData();
   const elections = await electionsService.getAllElection();
 
-  const publicVoterPreferences = [];
+  const publicVoterPreferences: electionPreferenceTableInsert[] = [];
+  const existingPreferences = new Set<string>();
+
   for (const voter of publicVoters) {
     const randomElection =
       elections[Math.floor(Math.random() * elections.length)];
+
+    const uniqueKey = `${voter.id}-${randomElection.id}`;
+    if (existingPreferences.has(uniqueKey)) {
+      continue;
+    }
+    existingPreferences.add(uniqueKey);
+
     const randomChoice =
       randomElection.choices[
         Math.floor(Math.random() * randomElection.choices.length)
@@ -36,10 +48,13 @@ export async function seedElectionPreferenceTable() {
     });
   }
 
-  for (const preference of publicVoterPreferences) {
-    await electionsService.addPublicPreference(preference);
+  if (publicVoterPreferences.length > 0) {
+    for (const preference of publicVoterPreferences) {
+      await electionsService.addPublicPreference(preference);
+    }
   }
 }
+
 export async function seedElectionVoteTable() {
   const representatives = await electionsService.getAllRepresentatives();
   const elections = await electionsService.getAllElection();
@@ -53,7 +68,6 @@ export async function seedElectionVoteTable() {
         choice:
           election.choices[Math.floor(Math.random() * election.choices.length)],
         representativeId: representative.id,
-        totalVotes: Math.floor(Math.random() * 20),
       });
     }
   }

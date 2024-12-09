@@ -50,7 +50,7 @@ export function createRepository(db: Db) {
       const representatives = await db
         .select({ totalVotes: count() })
         .from(representativeVotesTable)
-        .where(eq(representativeVotesTable.id, representativeId))
+        .where(eq(representativeVotesTable.representativeId, representativeId))
         .execute();
 
       return representatives.map((vote) => ({ totalVotes: vote }));

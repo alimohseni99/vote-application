@@ -10,6 +10,11 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart";
 
+type RadialChartProps = {
+  agreed: number;
+  disagreed: number;
+};
+
 const chartData = [{ agreed: 570, disagreed: 1260 }];
 
 const chartConfig = {
@@ -23,8 +28,9 @@ const chartConfig = {
   },
 } satisfies ChartConfig;
 
-export function RadialChart() {
-  const TotalVotes = chartData[0].agreed + chartData[0].disagreed;
+export function RadialChart({ agreed, disagreed }: RadialChartProps) {
+  const totalVotes = agreed + disagreed;
+  const agreement = (agreed / totalVotes) * 100;
 
   return (
     <Card className="w-[350px] flex flex-col justify-center">
@@ -57,14 +63,14 @@ export function RadialChart() {
                           y={(viewBox.cy || 0) - 16}
                           className="fill-foreground text-2xl font-bold"
                         >
-                          {TotalVotes.toLocaleString()}
+                          {totalVotes.toLocaleString()}
                         </tspan>
                         <tspan
                           x={viewBox.cx}
                           y={(viewBox.cy || 0) + 15}
                           className="fill-muted-foreground"
                         >
-                          Representative + Public votes
+                          Agreement of {agreement.toFixed(2)}%
                         </tspan>
                       </text>
                     );

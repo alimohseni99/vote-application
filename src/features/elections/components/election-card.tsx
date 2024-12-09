@@ -63,7 +63,7 @@ export function ElectionCard({ title, time, options, electionId }: Props) {
 
   const onClickToConclude = () => {
     if (selectedOption) {
-      concludeElectionAction(electionId, selectedOption, title, new Date(time));
+      concludeElectionAction(electionId, title, new Date(time));
       toast({
         description: "The election has been concluded",
       });

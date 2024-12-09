@@ -17,6 +17,8 @@ export async function Statistics() {
               email={election.email}
               options={election.choices.join(", ")}
               electionWinners={election.winnerChoice}
+              agreed={election.agreed}
+              disagreed={election.disagreed}
             />
           ))}
         </div>

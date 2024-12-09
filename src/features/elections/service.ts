@@ -32,7 +32,7 @@ export function createService(
 
       return await repository.addRepresentativeVote({
         ...vote,
-        totalVotes: totalVotes,
+        totalVotes,
       });
     },
 
@@ -41,11 +41,7 @@ export function createService(
       if (voter.length === 0) {
         throw new Error("Voter not found");
       }
-      return await repository.addPublicPreference(
-        vote.electionId,
-        vote.preference,
-        vote.voterId
-      );
+      return await repository.addPublicPreference(vote);
     },
     async concludeElection(electionId: string) {
       return await repository.updateElectionStatus(electionId);
@@ -54,17 +50,14 @@ export function createService(
       return await repository.getConcludedElectionData();
     },
 
-    async addElectionWinner(
-      electionId: string,
-      winnerChoice: string,
-      title: string,
-      time: Date
-    ) {
+    async addElectionWinner(electionId: string, title: string, time: Date) {
       const election = await repository.getElectionById(electionId);
       const electionWinner = await repository.getElectionWinner(electionId);
       const representative = await getRepresentative(
         electionWinner[0]?.representativeId
       );
+
+      const winnerChoice = electionWinner[0]?.choice;
 
       const preferences = await repository.getElectionPreference(electionId);
 
@@ -79,14 +72,13 @@ export function createService(
         title,
         time,
         email: representative.map((rep) => rep.email)[0],
-        totalVotes: electionWinner[0]?.totalVotes?.toString(),
         winnerChoice,
         choices: election[0]?.choices,
         agreed,
         disagreed,
         total: preferences.length,
       };
-
+      console.log({ winner: winner });
       return repository.addElectionWinner(winner);
     },
 

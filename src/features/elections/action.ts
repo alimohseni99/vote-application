@@ -41,18 +41,12 @@ export async function addPublicPreferenceAction(
 }
 export async function concludeElectionAction(
   electionId: string,
-  winnerChoice: string,
   title: string,
   createdTime: Date
 ) {
   const time = new Date(createdTime);
   try {
-    await electionsService.addElectionWinner(
-      electionId,
-      winnerChoice,
-      title,
-      time
-    );
+    await electionsService.addElectionWinner(electionId, title, time);
     await electionsService.concludeElection(electionId);
   } catch (error) {
     console.error("Error concluding election", error);

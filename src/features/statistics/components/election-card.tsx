@@ -9,7 +9,6 @@ import {
 } from "@/components/ui/card";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { DialogTitle } from "@radix-ui/react-dialog";
-import { ElectionOptions } from "./electionOptions";
 import { RadialChart } from "./radial-chart";
 
 type Props = {
@@ -19,6 +18,8 @@ type Props = {
   email: string;
   options: string;
   electionWinners: string;
+  agreed: number;
+  disagreed: number;
 };
 
 export function ElectionCardConcluded({
@@ -28,6 +29,8 @@ export function ElectionCardConcluded({
   email,
   options,
   electionWinners,
+  agreed,
+  disagreed,
 }: Props) {
   return (
     <Card className="w-full max-w-sm rounded-lg shadow-lg border border-gray-200 ">
@@ -76,14 +79,7 @@ export function ElectionCardConcluded({
               Summery of the Election
             </DialogTitle>
             <div className="flex justify-center items-center">
-              <RadialChart />
-            </div>
-            <div className="flex justify-center items-center">
-              <ElectionOptions
-                appleVotes={282}
-                bananaVotes={233}
-                orangeVotes={312}
-              />
+              <RadialChart agreed={agreed} disagreed={disagreed} />
             </div>
           </DialogContent>
         </Dialog>

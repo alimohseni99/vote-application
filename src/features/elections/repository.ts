@@ -2,6 +2,7 @@ import { Db } from "@/db";
 import { desc, eq } from "drizzle-orm";
 import {
   electionPreferenceTable,
+  electionPreferenceTableInsert,
   electionTable,
   electionTableInsert,
   electionVoteTable,
@@ -31,17 +32,11 @@ export function createRepository(db: Db) {
     },
 
     async addPublicPreference(
-      electionId: string,
-      electionPreference: string,
-      voterId: string
+      electionPreference: electionPreferenceTableInsert
     ) {
       await db
         .insert(electionPreferenceTable)
-        .values({
-          electionId,
-          preference: electionPreference,
-          voterId: voterId,
-        })
+        .values(electionPreference)
         .execute();
     },
     async updateElectionStatus(electionId: string) {

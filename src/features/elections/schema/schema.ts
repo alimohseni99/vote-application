@@ -52,7 +52,6 @@ export const electionWinnerTable = pgTable("election_winner", {
   email: varchar({ length: 255 }).notNull(),
   title: varchar({ length: 255 }).notNull(),
   time: timestamp().notNull(),
-  totalVotes: varchar({ length: 255 }).default("0"),
   winnerChoice: varchar({ length: 255 }).notNull(),
   choices: varchar({ length: 255 }).array().notNull(),
   agreed: integer().notNull(),
