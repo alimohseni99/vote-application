@@ -10,6 +10,7 @@ import {
 
 import Image from "next/image";
 import { AddPublicVoteAction } from "../action";
+import { AlertDialogDemo } from "./alert-dialog";
 
 type Props = {
   name: string;
@@ -62,9 +63,14 @@ export function RepresentativeCard({
       </CardContent>
 
       <CardFooter className="bg-gray-10 p-4 rounded-b-lg flex justify-center">
-        <Button className="w-32" onClick={onClick}>
-          Vote
-        </Button>
+        <AlertDialogDemo
+          description={
+            "You will be assigning this representative to vote on your behalf on elections."
+          }
+          onConfirm={onClick}
+        >
+          <Button className="w-full">Assign Representative</Button>
+        </AlertDialogDemo>
       </CardFooter>
     </Card>
   );

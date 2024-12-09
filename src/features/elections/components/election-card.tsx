@@ -97,7 +97,7 @@ export function ElectionCard({ title, time, options, electionId }: Props) {
       <CardFooter className="flex justify-center">
         <AlertDialogDemo
           description={
-            "This will conclude the election and you can view the results in the statistic section."
+            "This will register your vote and you will not be able to change it."
           }
           onConfirm={onClickRepresentative}
         >
@@ -107,7 +107,7 @@ export function ElectionCard({ title, time, options, electionId }: Props) {
       <CardFooter className="flex justify-center ">
         <AlertDialogDemo
           description={
-            "This will conclude the election and you can view the results in the statistic section."
+            "This will assign this choice as your preference in the upcoming election."
           }
           onConfirm={onClickPublic}
         >
