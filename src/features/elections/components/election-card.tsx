@@ -24,6 +24,8 @@ import {
   concludeElectionAction,
 } from "../action";
 
+import { AlertDialogDemo } from "./alert-dialog";
+
 type Props = {
   title: string;
   time: string;
@@ -62,16 +64,10 @@ export function ElectionCard({ title, time, options, electionId }: Props) {
   };
 
   const onClickToConclude = () => {
-    if (selectedOption) {
-      concludeElectionAction(electionId, title, new Date(time));
-      toast({
-        description: "The election has been concluded",
-      });
-    } else {
-      toast({
-        description: "Please select an option before concluding.",
-      });
-    }
+    concludeElectionAction(electionId, title, new Date(time));
+    toast({
+      description: "The election has been concluded",
+    });
   };
   return (
     <Card className="w-full max-w-sm rounded-lg shadow-lg border border-gray-200 ">
@@ -99,19 +95,34 @@ export function ElectionCard({ title, time, options, electionId }: Props) {
         </Select>
       </CardContent>
       <CardFooter className="flex justify-center">
-        <Button onClick={onClickRepresentative} className="w-full">
-          Submit vote
-        </Button>
+        <AlertDialogDemo
+          description={
+            "This will conclude the election and you can view the results in the statistic section."
+          }
+          onConfirm={onClickRepresentative}
+        >
+          <Button className="w-full">Submit vote</Button>
+        </AlertDialogDemo>
       </CardFooter>
       <CardFooter className="flex justify-center ">
-        <Button onClick={onClickPublic} className="w-full">
-          Submit preference
-        </Button>
+        <AlertDialogDemo
+          description={
+            "This will conclude the election and you can view the results in the statistic section."
+          }
+          onConfirm={onClickPublic}
+        >
+          <Button className="w-full">Submit preference</Button>
+        </AlertDialogDemo>
       </CardFooter>
       <CardFooter className="flex justify-center ">
-        <Button onClick={onClickToConclude} className="w-full">
-          Conclude Election
-        </Button>
+        <AlertDialogDemo
+          description={
+            "This will conclude the election and you can view the results in the statistic section."
+          }
+          onConfirm={onClickToConclude}
+        >
+          <Button className="w-full">Conclude Elections</Button>
+        </AlertDialogDemo>
       </CardFooter>
     </Card>
   );
