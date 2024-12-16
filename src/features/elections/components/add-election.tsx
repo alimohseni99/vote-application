@@ -1,9 +1,8 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import { z } from "zod";
-
+import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -14,14 +13,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { addElectionAction } from "../action";
-
-const electionSchema = z.object({
-  title: z.string().min(1, "This field is required"),
-  optionA: z.string().min(1, "This field is required"),
-  optionB: z.string().min(1, "This field is required"),
-  optionC: z.string().min(1, "This field is required"),
-  optionD: z.string().min(1, "This field is required"),
-});
+import { electionSchema } from "../validation";
 
 export function Election() {
   const form = useForm<z.infer<typeof electionSchema>>({

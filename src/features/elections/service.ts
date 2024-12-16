@@ -1,5 +1,5 @@
 import { Db } from "@/db";
-import { representativesService } from "../representative/instance";
+import { representativesService } from "../representatives/instance";
 import { createRepository } from "./repository";
 import {
   electionPreferenceTableInsert,
@@ -7,6 +7,7 @@ import {
   electionVoteTableInsert,
   electionWinnerTableInsert,
 } from "./schema/schema";
+import { electionSchema } from "./validation";
 
 export function createService(
   db: Db,
@@ -24,8 +25,13 @@ export function createService(
     },
 
     async addElection(election: electionTableInsert) {
-      return await repository.addElection(election);
+      const electionData = electionSchema.safeParse(election);
+      if (!electionData.success) {
+        throw new Error("Invalid election data");
+      }
+      await repository.addElection(election);
     },
+
     async addRepresentativeVote(vote: electionVoteTableInsert) {
       const TotalVotes = await getRepresentativeVotes(vote.representativeId);
       const totalVotes = TotalVotes[0]?.totalVotes?.totalVotes || 0;

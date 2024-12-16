@@ -1,6 +1,6 @@
 import { db } from "@/db";
-import { publicService } from "../publicVoter/instance";
-import { representativesService } from "../representative/instance";
+import { publicService } from "../publicVoters/instance";
+import { representativesService } from "../representatives/instance";
 import { createService } from "./service";
 
 export const electionsService = createService(
