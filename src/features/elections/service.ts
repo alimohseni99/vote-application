@@ -26,6 +26,7 @@ export function createService(
 
     async addElection(election: electionTableInsert) {
       const electionData = electionSchema.safeParse(election);
+      
       if (!electionData.success) {
         throw new Error("Invalid election data");
       }
