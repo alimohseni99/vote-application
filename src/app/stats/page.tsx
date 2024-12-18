@@ -1,5 +1,5 @@
 import { Statistics } from "@/features";
 
-export default function Page() {
+export default function StatisticsPage() {
   return <Statistics />;
 }
