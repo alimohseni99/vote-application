@@ -85,6 +85,7 @@ export function createService(
         disagreed,
         total: preferences.length,
       };
+      console.log({ winner: winner });
       return repository.addElectionWinner(winner);
     },
 
