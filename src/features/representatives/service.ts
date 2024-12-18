@@ -1,5 +1,5 @@
 import { Db } from "@/db";
-import { publicService } from "../public/instance";
+import { publicService } from "@/features";
 import { createRepository } from "./repository";
 import { representativeTableInsert } from "./schema/schema";
 

@@ -1,5 +1,5 @@
 import { Db } from "@/db";
-import { representativesService } from "../representatives/instance";
+import { representativesService } from "@/features";
 import { createRepository } from "./repository";
 import {
   electionPreferenceTableInsert,

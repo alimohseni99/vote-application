@@ -1,4 +1,4 @@
-import { electionsService } from "./../elections/instance";
+import { electionsService } from "@/features";
 
 export function createStatsService(
   getConcludedElectionData: typeof electionsService.getConcludedElectionData
