@@ -22,6 +22,13 @@ export function createService(
       if (publicVoter.length === 0) {
         throw new Error("Representative not found");
       }
+      const checkIfPublicVoterVoted = await repository.checkIfPublicVoterVoted(
+        representativeId,
+        publicVoterId
+      );
+      if (checkIfPublicVoterVoted) {
+        throw new Error("Public voter already voted");
+      }
       await repository.addPublicVote(representativeId, publicVoterId);
     },
     async getRepresentativeById(representativeId: string) {

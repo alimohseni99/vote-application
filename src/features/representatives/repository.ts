@@ -55,5 +55,19 @@ export function createRepository(db: Db) {
 
       return representatives.map((vote) => ({ totalVotes: vote }));
     },
+    async checkIfPublicVoterVoted(
+      representativeId: string,
+      publicVoterId: string
+    ) {
+      const vote = await db
+        .select()
+        .from(representativeVotesTable)
+        .where(
+          eq(representativeVotesTable.representativeId, representativeId) &&
+            eq(representativeVotesTable.publicVoterId, publicVoterId)
+        )
+        .execute();
+      return vote.length > 0;
+    },
   };
 }
